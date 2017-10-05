@@ -1,0 +1,160 @@
+buildscript {
+    repositories {
+        maven { url 'https://maven.fabric.io/public' }
+        jcenter()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath "io.fabric.tools:gradle:$rootProject.ext.fabricGradleVersion"
+        classpath "me.tatarka.retrolambda.projectlombok:lombok.ast:$rootProject.ext.retrolambdaprojectlombokVersion"
+        classpath "me.tatarka:gradle-retrolambda:$rootProject.ext.retrolambdaVersion"
+    }
+}
+apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
+apply plugin: 'me.tatarka.retrolambda'
+
+repositories {
+    maven { url 'https://maven.fabric.io/public' }
+    mavenCentral()
+}
+
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+    defaultConfig {
+        applicationId rootProject.ext.applicationId
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        multiDexEnabled true
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        ndk {
+            abiFilters "armeabi-v7a", "x86", "armeabi", "mips"
+        }
+        defaultConfig {
+            vectorDrawables.useSupportLibrary = true
+        }
+
+    }
+    Properties properties = new Properties()
+    properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+    buildTypes {
+
+        release {
+            debuggable false
+            jniDebuggable false
+            renderscriptDebuggable false
+            pseudoLocalesEnabled true
+            zipAlignEnabled true
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField('String', 'TAG', '"Movie Shows"')
+            buildConfigField('String', 'BASE_URL', '"https://api.themoviedb.org/3/"')
+            buildConfigField('String', 'API_KEY', properties.getProperty('api_key'))
+        }
+
+        debug {
+            debuggable true
+            jniDebuggable true
+            minifyEnabled false
+            //
+            renderscriptDebuggable true
+            pseudoLocalesEnabled true
+            zipAlignEnabled false
+            buildConfigField('String', 'TAG', '"Movie Shows Debug"')
+            buildConfigField('String', 'BASE_URL', '"https://api.themoviedb.org/3/"')
+            buildConfigField('String', 'API_KEY', properties.getProperty('api_key'))
+        }
+    }
+    aaptOptions {
+        cruncherEnabled false
+        useNewCruncher false
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    dexOptions {
+        dexInProcess false;
+        preDexLibraries = true;
+        javaMaxHeapSize "4g";
+        maxProcessCount 4;
+    }
+    packagingOptions {
+        exclude 'META-INF/rxjava.properties'
+        exclude 'META-INF/services/javax.annotation.processing.Processor'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+    }
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:26.+'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    testCompile 'junit:junit:4.12'
+}
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    // App's dependencies
+    compile "com.android.support:appcompat-v7:$rootProject.ext.supportLibraryVersion"
+    compile "com.android.support:design:$rootProject.ext.supportLibraryVersion"
+    compile "com.android.support:support-v4:$rootProject.ext.supportLibraryVersion"
+    //architecture components
+    compile "android.arch.lifecycle:runtime:$rootProject.architectureComponentsVersion"
+    compile "android.arch.lifecycle:extensions:$rootProject.architectureComponentsVersion"
+    annotationProcessor "android.arch.lifecycle:compiler:$rootProject.architectureComponentsVersion"
+    compile "android.arch.persistence.room:runtime:$rootProject.architectureComponentsVersion"
+    annotationProcessor "android.arch.persistence.room:compiler:$rootProject.architectureComponentsVersion"
+    compile "android.arch.persistence.room:rxjava2:$rootProject.architectureComponentsVersion"
+
+    // RecyclerView
+    compile "com.android.support:recyclerview-v7:$rootProject.ext.supportLibraryVersion"
+    // CardView
+    compile "com.android.support:cardview-v7:$rootProject.ext.supportLibraryVersion"
+    //butterknife
+    compile "com.jakewharton:butterknife:$rootProject.ext.butterknifeVersion"
+    annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.ext.butterknifeVersion"
+    //Retrofit & RX Java
+    compile "com.squareup.retrofit2:retrofit:$rootProject.ext.retrofitVersion"
+    compile "com.squareup.retrofit2:converter-gson:$rootProject.ext.retrofitVersion"
+    compile "com.squareup.retrofit2:adapter-rxjava:$rootProject.ext.retrofitVersion"
+    retrolambdaConfig "net.orfjackal.retrolambda:retrolambda:$rootProject.ext.retrofitVersion"
+    compile "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:$rootProject.ext.rxJava2CallAdapterVersion"
+    compile "com.jakewharton.rxbinding2:rxbinding-appcompat-v7:$rootProject.ext.rxbindingVersion"
+    compile "com.squareup.okhttp3:logging-interceptor:$rootProject.ext.squareupVersion"
+    compile("com.crashlytics.sdk.android:crashlytics:$rootProject.ext.crashlyticsVersion") {
+        transitive = true;
+    }
+    //Dagger
+    compile "com.google.dagger:dagger:$rootProject.ext.daggerVersion"
+    //needed for source code generation
+    annotationProcessor "com.google.dagger:dagger-compiler:$rootProject.ext.daggerVersion"
+    //dagger itself
+    provided "javax.annotation:jsr250-api:$rootProject.ext.daggerAnnotationsVersion"
+    compile "de.hdodenhof:circleimageview:$rootProject.ext.circleImageVersion"
+    configurations.all {
+        resolutionStrategy.force "com.android.support:support-annotations:$rootProject.ext.supportLibraryVersion"
+    }
+
+    //debug & performance
+    compile "com.facebook.stetho:stetho:$rootProject.ext.stethoVersion"
+    compile "com.facebook.stetho:stetho-okhttp3:$rootProject.ext.stethoVersion"
+    debugCompile "com.squareup.leakcanary:leakcanary-android:$rootProject.ext.leakcanaryVersion"
+    releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:$rootProject.ext.leakcanaryVersion"
+}
