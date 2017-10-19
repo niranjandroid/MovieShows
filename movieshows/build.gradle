@@ -7,14 +7,11 @@ buildscript {
 
     dependencies {
         classpath "io.fabric.tools:gradle:$rootProject.ext.fabricGradleVersion"
-        classpath "me.tatarka.retrolambda.projectlombok:lombok.ast:$rootProject.ext.retrolambdaprojectlombokVersion"
-        classpath "me.tatarka:gradle-retrolambda:$rootProject.ext.retrolambdaVersion"
     }
 }
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
 apply plugin: 'io.fabric'
-apply plugin: 'me.tatarka.retrolambda'
-
 repositories {
     maven { url 'https://maven.fabric.io/public' }
     mavenCentral()
@@ -75,10 +72,7 @@ android {
         useNewCruncher false
     }
 
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
+
     dexOptions {
         dexInProcess false;
         preDexLibraries = true;
@@ -101,16 +95,9 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    compile 'com.android.support:appcompat-v7:26.+'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    testCompile 'junit:junit:4.12'
-}
-dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
+
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     // App's dependencies
     compile "com.android.support:appcompat-v7:$rootProject.ext.supportLibraryVersion"
     compile "com.android.support:design:$rootProject.ext.supportLibraryVersion"
@@ -134,13 +121,14 @@ dependencies {
     compile "com.squareup.retrofit2:retrofit:$rootProject.ext.retrofitVersion"
     compile "com.squareup.retrofit2:converter-gson:$rootProject.ext.retrofitVersion"
     compile "com.squareup.retrofit2:adapter-rxjava:$rootProject.ext.retrofitVersion"
-    retrolambdaConfig "net.orfjackal.retrolambda:retrolambda:$rootProject.ext.retrofitVersion"
     compile "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:$rootProject.ext.rxJava2CallAdapterVersion"
     compile "com.jakewharton.rxbinding2:rxbinding-appcompat-v7:$rootProject.ext.rxbindingVersion"
     compile "com.squareup.okhttp3:logging-interceptor:$rootProject.ext.squareupVersion"
     compile("com.crashlytics.sdk.android:crashlytics:$rootProject.ext.crashlyticsVersion") {
         transitive = true;
     }
+    //Event bus
+    compile 'org.greenrobot:eventbus:3.0.0'
     //Dagger
     compile "com.google.dagger:dagger:$rootProject.ext.daggerVersion"
     //needed for source code generation
