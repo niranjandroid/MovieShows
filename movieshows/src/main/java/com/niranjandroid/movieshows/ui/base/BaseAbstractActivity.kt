@@ -1,10 +1,11 @@
-package com.niranjandroid.movieshows.base
+package com.niranjandroid.movieshows.ui.base
 
-import android.arch.lifecycle.LifecycleActivity
+import android.arch.lifecycle.LifecycleOwner
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
+import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
 import com.niranjandroid.movieshows.R
 
@@ -12,7 +13,7 @@ import com.niranjandroid.movieshows.R
  * Created by Niranjan P on 8/20/2017.
  */
 
-abstract class BaseAbstractActivity : LifecycleActivity(), BaseContract.ActivityView {
+abstract class BaseAbstractActivity : AppCompatActivity(), LifecycleOwner, BaseContract.ActivityView {
 
     override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
         super.onCreate(savedInstanceState, persistentState)

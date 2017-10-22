@@ -1,4 +1,4 @@
-package com.niranjandroid.movieshows.base
+package com.niranjandroid.movieshows.ui.base
 
 import java.lang.annotation.Retention
 import java.lang.annotation.RetentionPolicy

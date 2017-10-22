@@ -1,6 +1,6 @@
-package com.niranjandroid.movieshows.base
+package com.niranjandroid.movieshows.ui.base
 
-import android.arch.lifecycle.LifecycleFragment
+import android.arch.lifecycle.LifecycleOwner
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -9,7 +9,7 @@ import android.support.v4.app.Fragment
  * Created by Niranjan P on 8/20/2017.
  */
 
-abstract class BaseAbstractFragment : LifecycleFragment(), BaseContract.FragmentView {
+abstract class BaseAbstractFragment : Fragment(), LifecycleOwner, BaseContract.FragmentView {
 
     private var mActivity: BaseContract.ActivityView? = null
 

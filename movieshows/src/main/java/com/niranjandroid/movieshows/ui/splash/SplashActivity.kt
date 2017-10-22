@@ -1,12 +1,13 @@
-package com.niranjandroid.movieshows.splash
+package com.niranjandroid.movieshows.ui.splash
 
 import android.arch.lifecycle.LifecycleActivity
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.view.Window
 import android.view.WindowManager
-
 import com.niranjandroid.movieshows.R
+import com.niranjandroid.movieshows.ui.movielisting.MovieListingActivity
 
 class SplashActivity : LifecycleActivity() {
     private var splashTimeHandler: Handler? = null
@@ -24,11 +25,12 @@ class SplashActivity : LifecycleActivity() {
 
     private fun startupHandler() {
         splashTimeHandler = Handler()
-        splashTimeHandler!!.postDelayed({ launchHomeScreen() }, SPLASH_TIME.toLong())
+        splashTimeHandler?.postDelayed({ launchHomeScreen() }, SPLASH_TIME.toLong())
     }
 
     private fun launchHomeScreen() {
-
+        startActivity(Intent(this, MovieListingActivity::class.java))
+        finish()
     }
 
     override fun onDestroy() {

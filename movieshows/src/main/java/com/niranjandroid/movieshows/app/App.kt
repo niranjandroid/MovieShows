@@ -1,14 +1,13 @@
 package com.niranjandroid.movieshows.app
 
 import android.app.Application
-
 import com.crashlytics.android.Crashlytics
 import com.facebook.stetho.Stetho
 import com.niranjandroid.movieshows.Constants
-import com.niranjandroid.movieshows.data.network.NetworkModule
 import com.niranjandroid.movieshows.data.prefs.PreferencesHelper
+import com.niranjandroid.movieshows.ui.movielisting.MovieListingComponent
+import com.niranjandroid.movieshows.ui.movielisting.MovieListingModule
 import com.squareup.leakcanary.LeakCanary
-
 import io.fabric.sdk.android.Fabric
 
 /**
@@ -17,7 +16,16 @@ import io.fabric.sdk.android.Fabric
 
 class App : Application() {
 
-    private var mAppComponent: AppComponent ?= null
+    val mAppComponent: AppComponent by lazy {
+        DaggerAppComponent
+                .builder()
+                .appModule(AppModule(this))
+                .build()
+    }
+
+    //private var mAppComponent : AppComponent ?= null
+
+    private var mMovieListingComponent : MovieListingComponent ?= null
 
     override fun onCreate() {
         super.onCreate()
@@ -29,7 +37,6 @@ class App : Application() {
     }
 
     private fun init() {
-        initComponent()
         initLibraries()
     }
 
@@ -51,11 +58,12 @@ class App : Application() {
         PreferencesHelper.init(this, Constants.PREFERENCES_NAME)
     }
 
-    private fun initComponent() {
-        mAppComponent = DaggerAppComponent.builder()
-                .appModule(AppModule(this))
-                .networkModule(NetworkModule())
-                .build()
+    fun getMovieListingComponent() : MovieListingComponent? {
+        mMovieListingComponent = mAppComponent?.plus(MovieListingModule())
+        return mMovieListingComponent
     }
 
+    fun releaseMovieListingComponent() {
+        mMovieListingComponent = null
+    }
 }

@@ -1,6 +1,8 @@
 package com.niranjandroid.movieshows.app
 
 import com.niranjandroid.movieshows.data.network.NetworkModule
+import com.niranjandroid.movieshows.ui.movielisting.MovieListingComponent
+import com.niranjandroid.movieshows.ui.movielisting.MovieListingModule
 import dagger.Component
 import javax.inject.Singleton
 
@@ -9,4 +11,6 @@ import javax.inject.Singleton
  */
 @Singleton
 @Component(modules = arrayOf(NetworkModule::class, AppModule::class))
-interface AppComponent
+interface AppComponent {
+    fun plus(mMovieListingModule: MovieListingModule) : MovieListingComponent
+}
