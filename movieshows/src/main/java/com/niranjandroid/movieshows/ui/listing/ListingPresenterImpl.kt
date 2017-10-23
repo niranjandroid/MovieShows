@@ -1,4 +1,4 @@
-package com.niranjandroid.movieshows.ui.movielisting
+package com.niranjandroid.movieshows.ui.listing
 
 import android.util.Log
 import com.niranjandroid.movieshows.data.model.MovieListModel
@@ -9,9 +9,9 @@ import io.reactivex.disposables.CompositeDisposable
  * Created by Niranjan P on 8/20/2017.
  */
 
-class MovieListingPresenterImpl(private var interactor: MovieListingContract.Interactor?)
-    :  MovieListingContract.Presenter {
-    private var view: MovieListingContract.View? = null
+class ListingPresenterImpl(private var interactor: ListingContract.Interactor?)
+    :  ListingContract.Presenter {
+    private var view: ListingContract.View? = null
     private val compositeDisposable = CompositeDisposable()
 
     override fun clear() {
@@ -39,7 +39,7 @@ class MovieListingPresenterImpl(private var interactor: MovieListingContract.Int
     }
 
 
-    override fun attachView(view: MovieListingContract.View) {
+    override fun attachView(view: ListingContract.View) {
         this.view = view
     }
 }

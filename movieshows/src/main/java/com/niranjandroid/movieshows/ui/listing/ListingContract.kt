@@ -1,4 +1,4 @@
-package com.niranjandroid.movieshows.ui.movielisting
+package com.niranjandroid.movieshows.ui.listing
 
 import com.niranjandroid.movieshows.data.model.MovieListModel
 import com.niranjandroid.movieshows.data.network.ApiCallBack
@@ -9,13 +9,13 @@ import io.reactivex.disposables.Disposable
  * Created by Niranjan P on 8/20/2017.
  */
 
-interface MovieListingContract {
+interface ListingContract {
     interface View : BaseContract.FragmentView {
         fun updateMovies(movieListModel: MovieListModel)
     }
 
     interface Presenter : BaseContract.Presenter {
-        fun attachView(view: MovieListingContract.View)
+        fun attachView(view: ListingContract.View)
         fun initMoviesList()
     }
 

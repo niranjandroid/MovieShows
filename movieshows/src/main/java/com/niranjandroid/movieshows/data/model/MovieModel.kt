@@ -1,8 +1,9 @@
 package com.niranjandroid.movieshows.data.model
 
+import android.arch.lifecycle.ViewModel
 import com.google.gson.annotations.SerializedName
 
-class MovieModel {
+class MovieModel : ViewModel() {
 
     @SerializedName("adult")
     var adult: Boolean? = null

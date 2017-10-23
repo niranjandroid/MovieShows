@@ -1,9 +1,10 @@
 package com.niranjandroid.movieshows.data.model
 
+import android.arch.lifecycle.ViewModel
 import com.google.gson.annotations.SerializedName
 
 
-class MovieListModel {
+class MovieListModel : ViewModel() {
 
     @SerializedName("page")
     var page: Long? = null

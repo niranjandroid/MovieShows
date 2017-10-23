@@ -1,4 +1,4 @@
-package com.niranjandroid.movieshows.ui.movielisting
+package com.niranjandroid.movieshows.ui.listing
 
 import android.os.Bundle
 import android.support.v7.widget.Toolbar
@@ -7,7 +7,7 @@ import com.niranjandroid.movieshows.R
 import com.niranjandroid.movieshows.ui.base.BaseAbstractActivity
 import com.niranjandroid.movieshows.ui.base.BaseContract
 
-class MovieListingActivity : BaseAbstractActivity() {
+class ListingActivity : BaseAbstractActivity() {
 
     override val presenter: BaseContract.Presenter?
         get() = null
@@ -21,6 +21,6 @@ class MovieListingActivity : BaseAbstractActivity() {
     }
 
     override fun init() {
-        navigateToFragment(MovieListingFragment.newInstance(), "")
+        navigateToFragment(ListingFragment.newInstance(), "")
     }
 }

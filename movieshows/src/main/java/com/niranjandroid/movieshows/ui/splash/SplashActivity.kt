@@ -7,7 +7,7 @@ import android.os.Handler
 import android.view.Window
 import android.view.WindowManager
 import com.niranjandroid.movieshows.R
-import com.niranjandroid.movieshows.ui.movielisting.MovieListingActivity
+import com.niranjandroid.movieshows.ui.listing.ListingActivity
 
 class SplashActivity : LifecycleActivity() {
     private var splashTimeHandler: Handler? = null
@@ -29,7 +29,7 @@ class SplashActivity : LifecycleActivity() {
     }
 
     private fun launchHomeScreen() {
-        startActivity(Intent(this, MovieListingActivity::class.java))
+        startActivity(Intent(this, ListingActivity::class.java))
         finish()
     }
 

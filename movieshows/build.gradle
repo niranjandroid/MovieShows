@@ -105,6 +105,7 @@ dependencies {
     compile "com.android.support:appcompat-v7:$rootProject.ext.supportLibraryVersion"
     compile "com.android.support:design:$rootProject.ext.supportLibraryVersion"
     compile "com.android.support:support-v4:$rootProject.ext.supportLibraryVersion"
+    compile "com.android.support:palette-v7:$rootProject.ext.supportLibraryVersion"
     //architecture components
     compile "android.arch.lifecycle:runtime:$rootProject.architectureComponentsVersion"
     compile "android.arch.lifecycle:extensions:$rootProject.architectureComponentsVersion"
@@ -120,9 +121,6 @@ dependencies {
     compile "com.github.bumptech.glide:glide:$rootProject.ext.glideVersion"
     kapt "com.github.bumptech.glide:compiler:$rootProject.ext.glideVersion"
 
-    //butterknife
-    compile "com.jakewharton:butterknife:$rootProject.ext.butterknifeVersion"
-    kapt "com.jakewharton:butterknife-compiler:$rootProject.ext.butterknifeVersion"
     //Retrofit & RX Java
     compile "com.squareup.retrofit2:retrofit:$rootProject.ext.retrofitVersion"
     compile "com.squareup.retrofit2:converter-gson:$rootProject.ext.retrofitVersion"

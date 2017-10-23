@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/uniform_margin"
+                android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/img_movie"
+        android:layout_width="@dimen/img_movie_size"
+        android:layout_height="@dimen/img_movie_size"
+        android:layout_marginRight="@dimen/img_movie_space"/>
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/img_movie"
+        android:maxLines="1"
+        android:text="Title"
+        android:textColor="@color/colorTextPrimary"
+        android:textSize="@dimen/title_text_size"
+        android:textStyle="italic"/>
+
+    <TextView
+        android:id="@+id/tv_release_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_title"
+        android:layout_toRightOf="@id/img_movie"
+        android:text="23/10/2017"/>
+
+    <TextView
+        android:id="@+id/tv_rating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_release_date"
+        android:layout_toRightOf="@id/img_movie"
+        android:text="9/10 (90 votes)"/>
+</RelativeLayout>
