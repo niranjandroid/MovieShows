@@ -2,6 +2,7 @@ package com.niranjandroid.movieshows.data.network
 
 import android.app.Application
 import com.facebook.stetho.okhttp3.StethoInterceptor
+import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import com.niranjandroid.movieshows.BuildConfig
 import dagger.Module
 import dagger.Provides
@@ -11,7 +12,6 @@ import okhttp3.OkHttpClient
 import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.IOException
 import javax.inject.Singleton
@@ -42,7 +42,7 @@ class NetworkModule {
     @Singleton
     internal fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
         val retrofit = Retrofit.Builder()
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl(mBaseUrl)
                 .client(okHttpClient)

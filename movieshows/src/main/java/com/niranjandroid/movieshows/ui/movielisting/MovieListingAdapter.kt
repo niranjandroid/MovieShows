@@ -14,7 +14,7 @@ import com.niranjandroid.movieshows.data.model.MovieModel
  */
 class MovieListingAdapter(var movieListModel : MovieListModel?) : RecyclerView.Adapter<MovieListingAdapter.ViewHolder>() {
 
-    var movieList : List<MovieModel> ?= ArrayList()
+    var movieList : List<MovieModel> ?= ArrayList<MovieModel>()
 
     fun updateMovies(movieListModel: MovieListModel?) {
         this.movieListModel = movieListModel;

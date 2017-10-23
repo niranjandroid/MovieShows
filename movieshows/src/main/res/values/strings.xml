@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">MovieShows</string>
-    <string name="title_activity_movie_listing">MovieListingActivity</string>
+    <string name="title_activity_movie_listing">Movies</string>
 </resources>

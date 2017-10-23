@@ -4,6 +4,7 @@ import android.app.Application
 import com.crashlytics.android.Crashlytics
 import com.facebook.stetho.Stetho
 import com.niranjandroid.movieshows.Constants
+import com.niranjandroid.movieshows.data.network.NetworkModule
 import com.niranjandroid.movieshows.data.prefs.PreferencesHelper
 import com.niranjandroid.movieshows.ui.movielisting.MovieListingComponent
 import com.niranjandroid.movieshows.ui.movielisting.MovieListingModule
@@ -20,12 +21,11 @@ class App : Application() {
         DaggerAppComponent
                 .builder()
                 .appModule(AppModule(this))
+                .networkModule(NetworkModule())
                 .build()
     }
 
-    //private var mAppComponent : AppComponent ?= null
-
-    private var mMovieListingComponent : MovieListingComponent ?= null
+    private var mMovieListingComponent : MovieListingComponent?= null
 
     override fun onCreate() {
         super.onCreate()

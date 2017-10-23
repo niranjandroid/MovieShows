@@ -41,7 +41,7 @@ ext{
     butterknifeVersion = "8.8.1"
     retrofitVersion = "2.3.0"
     rxbindingVersion = '2.0.0'
-    squareupVersion = '3.3.1'
+    squareupVersion = '3.4.1'
     rxJava2CallAdapterVersion = '1.0.0'
     daggerVersion = '2.11'
     daggerAnnotationsVersion = '1.0'

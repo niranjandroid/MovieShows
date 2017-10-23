@@ -20,13 +20,14 @@ import javax.inject.Inject
 class MovieListingFragment : BaseAbstractFragment(), MovieListingContract.View {
 
     @BindView(R.id.list_movies)
-    val listMovies: RecyclerView? = null
+    @JvmField var listMovies: RecyclerView? = null
 
     var movieListingAdapter: MovieListingAdapter? = null
 
     var mMovieListingModel: MovieListModel? = null
+
     @Inject
-    override var presenter: MovieListingContract.Presenter? = null
+    override lateinit var presenter: MovieListingContract.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

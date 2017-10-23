@@ -13,19 +13,19 @@ interface ApiService {
     //MOVIES
 
     //popular movies
-    @GET("/movie/popular")
+    @GET("movie/popular")
     fun getPopularMovies(@Query("page") pageNum: String): Observable<MovieListModel>
 
     //popular movies
-    @GET("/movie/now_playing")
+    @GET("movie/now_playing")
     fun getNowPlayingMovies(@Query("page") pageNum: String): Observable<MovieListModel>
 
     //top rated movies
-    @GET("/movie/top_rated")
+    @GET("movie/top_rated")
     fun getTopRatedMovies(@Query("page") pageNum: String): Observable<MovieListModel>
 
     // upcoming movies
-    @GET("/movie/upcoming")
+    @GET("movie/upcoming")
     fun getUpcomingMovies(@Query("page") pageNum : String) : Observable<MovieListModel>
 
 }
