@@ -1,5 +1,6 @@
 package com.niranjandroid.movieshows.ui.listing
 
+import com.niranjandroid.movieshows.data.model.Genres
 import com.niranjandroid.movieshows.data.model.MovieListModel
 import com.niranjandroid.movieshows.data.network.ApiCallBack
 import com.niranjandroid.movieshows.ui.base.BaseContract
@@ -23,5 +24,6 @@ interface ListingContract {
 
     interface Interactor {
         fun fetchPopularMovies(pageNum : String, apiCallBack: ApiCallBack<MovieListModel>) : Disposable
+        fun fetchGenres(apiCallBack: ApiCallBack<Genres>): Disposable
     }
 }

@@ -1,6 +1,7 @@
 package com.niranjandroid.movieshows.ui.listing
 
 import android.util.Log
+import com.niranjandroid.movieshows.data.model.Genres
 import com.niranjandroid.movieshows.data.model.MovieListModel
 import com.niranjandroid.movieshows.data.network.ApiCallBack
 import io.reactivex.disposables.CompositeDisposable
@@ -24,11 +25,24 @@ class ListingPresenterImpl(private var interactor: ListingContract.Interactor?)
         compositeDisposable.add(interactor?.fetchPopularMovies("1", object : ApiCallBack<MovieListModel> {
             override fun onSuccess(movieListModel: MovieListModel) {
                 view?.onFetchingMovies(movieListModel)
+                fetchGenres()
             }
 
             override fun onError(throwable: Throwable) {
                 Log.d("Niranjan", throwable?.message +"")
                 //handle error through rx bus
+            }
+        }))
+    }
+
+    fun fetchGenres() {
+        compositeDisposable.add(interactor?.fetchGenres(object : ApiCallBack<Genres> {
+            override fun onSuccess(genres: Genres) {
+                //TODO save genres
+            }
+
+            override fun onError(throwable: Throwable) {
+                Log.d("Niranjan", throwable?.message +"")
             }
         }))
     }

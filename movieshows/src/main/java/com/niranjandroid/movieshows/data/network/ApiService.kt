@@ -1,5 +1,6 @@
 package com.niranjandroid.movieshows.data.network
 
+import com.niranjandroid.movieshows.data.model.Genres
 import com.niranjandroid.movieshows.data.model.MovieListModel
 import io.reactivex.Observable
 import retrofit2.http.GET
@@ -28,4 +29,7 @@ interface ApiService {
     @GET("movie/upcoming")
     fun getUpcomingMovies(@Query("page") pageNum : String) : Observable<MovieListModel>
 
+    //genres
+    @GET("genre/movie/list")
+    fun getGenres() : Observable<Genres>
 }

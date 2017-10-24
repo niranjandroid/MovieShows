@@ -1,5 +1,6 @@
 package com.niranjandroid.movieshows.ui.listing
 
+import com.niranjandroid.movieshows.data.model.Genres
 import com.niranjandroid.movieshows.data.model.MovieListModel
 import com.niranjandroid.movieshows.data.network.ApiCallBack
 import com.niranjandroid.movieshows.data.network.ApiService
@@ -14,4 +15,6 @@ class ListingInteractorImpl(var apiService: ApiService) : ListingContract.Intera
     override fun fetchPopularMovies(pageNum : String, apiCallBack: ApiCallBack<MovieListModel>): Disposable =
             RxApiHandler<MovieListModel>().handle(apiService.getPopularMovies(pageNum), apiCallBack)
 
+    override fun fetchGenres(apiCallBack: ApiCallBack<Genres>): Disposable =
+            RxApiHandler<Genres>().handle(apiService.getGenres(), apiCallBack)
 }
