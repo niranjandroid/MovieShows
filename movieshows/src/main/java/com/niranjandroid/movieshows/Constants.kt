@@ -6,4 +6,5 @@ package com.niranjandroid.movieshows
 
 object Constants {
     val PREFERENCES_NAME = "movie_shows_prefs"
+    val MOVIE_OBJ = "movie_object"
 }

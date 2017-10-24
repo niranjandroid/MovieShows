@@ -22,8 +22,8 @@ import com.niranjandroid.movieshows.data.network.ApiMedia
 /**
  * Created by Niranjan P on 10/21/2017.
  */
-class ListingAdapter(var movieList: MutableList<MovieModel>?) : RecyclerView.Adapter<ListingAdapter.ViewHolder>() {
-
+class ListingAdapter(var movieList: MutableList<MovieModel>?, var itemClickListener: ItemClickListener?)
+    : RecyclerView.Adapter<ListingAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
         var view = LayoutInflater.from(parent?.context).inflate(R.layout.item_movie, parent, false)
         var viewHolder = ViewHolder(view);
@@ -33,7 +33,7 @@ class ListingAdapter(var movieList: MutableList<MovieModel>?) : RecyclerView.Ada
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
 
         if (position == movieList?.size) {
-            holder?.imgMore?.visibility = View.VISIBLE
+            initShowMore(holder)
         }
         else {
             var movie: MovieModel? = movieList?.get(position)
@@ -41,10 +41,16 @@ class ListingAdapter(var movieList: MutableList<MovieModel>?) : RecyclerView.Ada
         }
     }
 
+    private fun initShowMore(holder: ViewHolder?) {
+        holder?.imgMore?.visibility = View.VISIBLE
+        holder?.imgMore?.setOnClickListener({v -> itemClickListener?.onMoreBtnClicked()})
+    }
+
     private fun updateUI(holder: ViewHolder?, movie: MovieModel?) {
         loadImage(holder, movie?.posterPath)
         holder?.imgMore?.visibility = View.GONE
         holder?.tvTitle?.text = movie?.title
+        holder?.itemView?.setOnClickListener { v -> itemClickListener?.onMovieSelected(movie) }
     }
 
     private fun loadImage(holder: ViewHolder?, posterPath: String?) {

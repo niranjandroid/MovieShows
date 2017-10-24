@@ -6,6 +6,8 @@ import com.facebook.stetho.Stetho
 import com.niranjandroid.movieshows.Constants
 import com.niranjandroid.movieshows.data.network.NetworkModule
 import com.niranjandroid.movieshows.data.prefs.PreferencesHelper
+import com.niranjandroid.movieshows.ui.details.DetailsComponent
+import com.niranjandroid.movieshows.ui.details.DetailsModule
 import com.niranjandroid.movieshows.ui.listing.ListingComponent
 import com.niranjandroid.movieshows.ui.listing.ListingModule
 import com.squareup.leakcanary.LeakCanary
@@ -25,7 +27,8 @@ class App : Application() {
                 .build()
     }
 
-    private var mListingComponent: ListingComponent?= null
+    private var mListingComponent: ListingComponent? = null
+    private var mDetailsComponent: DetailsComponent? = null
 
     override fun onCreate() {
         super.onCreate()
@@ -58,12 +61,21 @@ class App : Application() {
         PreferencesHelper.init(this, Constants.PREFERENCES_NAME)
     }
 
-    fun getMovieListingComponent() : ListingComponent? {
+    fun getMovieListingComponent(): ListingComponent? {
         mListingComponent = mAppComponent?.plus(ListingModule())
         return mListingComponent
     }
 
     fun releaseMovieListingComponent() {
         mListingComponent = null
+    }
+
+    fun getDetailsComponent(): DetailsComponent? {
+        mDetailsComponent = mAppComponent?.plus(DetailsModule())
+        return mDetailsComponent
+    }
+
+    fun releaseDetailsComponent() {
+        mDetailsComponent = null
     }
 }

@@ -23,7 +23,7 @@ class ListingPresenterImpl(private var interactor: ListingContract.Interactor?)
     override fun initMoviesList() {
         compositeDisposable.add(interactor?.fetchPopularMovies("1", object : ApiCallBack<MovieListModel> {
             override fun onSuccess(movieListModel: MovieListModel) {
-                view?.updateMovies(movieListModel)
+                view?.onFetchingMovies(movieListModel)
             }
 
             override fun onError(throwable: Throwable) {
@@ -33,9 +33,20 @@ class ListingPresenterImpl(private var interactor: ListingContract.Interactor?)
         }))
     }
 
+    override fun loadMovies(pageNum: Int) {
+        compositeDisposable.add(interactor?.fetchPopularMovies(pageNum.toString(), object : ApiCallBack<MovieListModel> {
+            override fun onSuccess(movieListModel: MovieListModel) {
+                view?.updateMovies(movieListModel)
+            }
+
+            override fun onError(throwable: Throwable) {
+                Log.d("Niranjan", throwable?.message +"")
+                //handle error through rx bus
+            }
+        }))
+    }
     override fun disposeComposites() {
         compositeDisposable.dispose()
-        view = null
     }
 
 

@@ -1,6 +1,7 @@
 package com.niranjandroid.movieshows.ui.base
 
 import android.support.v4.app.Fragment
+import com.niranjandroid.movieshows.data.model.MovieListModel
 
 /**
  * Created by Niranjan P on 8/20/2017.

@@ -11,12 +11,14 @@ import io.reactivex.disposables.Disposable
 
 interface ListingContract {
     interface View : BaseContract.FragmentView {
+        fun onFetchingMovies(movieListModel: MovieListModel)
         fun updateMovies(movieListModel: MovieListModel)
     }
 
     interface Presenter : BaseContract.Presenter {
         fun attachView(view: ListingContract.View)
         fun initMoviesList()
+        fun loadMovies(pageNum: Int)
     }
 
     interface Interactor {

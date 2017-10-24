@@ -15,13 +15,13 @@ class ListingModule {
 
     @Provides
     @BaseScope
-    fun provideLoginInteractor(apiService: ApiService): ListingContract.Interactor {
+    fun provideInteractor(apiService: ApiService): ListingContract.Interactor {
         return ListingInteractorImpl(apiService)
     }
 
     @Provides
     @BaseScope
-    fun provideLoginPresenter(interactor: ListingContract.Interactor): ListingContract.Presenter {
+    fun providePresenter(interactor: ListingContract.Interactor): ListingContract.Presenter {
         return ListingPresenterImpl(interactor)
     }
 }

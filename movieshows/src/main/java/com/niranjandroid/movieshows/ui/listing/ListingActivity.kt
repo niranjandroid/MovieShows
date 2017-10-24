@@ -14,7 +14,7 @@ class ListingActivity : BaseAbstractActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_movie_listing)
+        setContentView(R.layout.activity_container)
         val toolbar = findViewById<View>(R.id.toolbar) as Toolbar
         setSupportActionBar(toolbar);
         init()
