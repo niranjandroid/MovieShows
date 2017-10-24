@@ -64,7 +64,7 @@ class DetailsFragment : BaseAbstractFragment(){
         tvTitle?.text = movie?.title
         tvReleaseDate?.text = movie?.releaseDate
         tvRating?.text = String.format(activity.getString(R.string.info_rating),
-                movie?.voteAverage, movie?.voteAverage)
+                movie?.voteAverage, movie?.voteCount)
 
     }
 
