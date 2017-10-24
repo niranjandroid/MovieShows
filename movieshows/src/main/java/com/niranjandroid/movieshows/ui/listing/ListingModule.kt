@@ -24,4 +24,10 @@ class ListingModule {
     fun providePresenter(interactor: ListingContract.Interactor): ListingContract.Presenter {
         return ListingPresenterImpl(interactor)
     }
+
+    @Provides
+    @BaseScope
+    fun provideListingAdapter(): ListingAdapter {
+        return ListingAdapter()
+    }
 }

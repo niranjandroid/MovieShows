@@ -27,11 +27,13 @@ class ListingFragment : BaseAbstractFragment(), ListingContract.View, ItemClickL
 
     var listMovies: RecyclerView? = null
 
-    var listingAdapter: ListingAdapter? = null
+    @Inject
+    @JvmField var listingAdapter: ListingAdapter? = null
 
     var mMovieListingModel: MovieListModel? = null
 
     var mMovieList : MutableList<MovieModel> ?= ArrayList()
+
     @Inject
     override lateinit var presenter: ListingContract.Presenter
 
@@ -52,7 +54,7 @@ class ListingFragment : BaseAbstractFragment(), ListingContract.View, ItemClickL
         (activity.application as App).getMovieListingComponent()?.inject(this)
         presenter?.attachView(this)
         presenter?.initMoviesList();
-        listingAdapter = ListingAdapter(mMovieList, this)
+        listingAdapter?.init(mMovieList, this)
         listMovies = activity.findViewById<View>(R.id.list_movies) as RecyclerView
         listMovies?.layoutManager = GridLayoutManager(activity, 3)
         listMovies?.adapter = listingAdapter

@@ -22,8 +22,14 @@ import com.niranjandroid.movieshows.data.network.ApiMedia
 /**
  * Created by Niranjan P on 10/21/2017.
  */
-class ListingAdapter(var movieList: MutableList<MovieModel>?, var itemClickListener: ItemClickListener?)
-    : RecyclerView.Adapter<ListingAdapter.ViewHolder>() {
+class ListingAdapter : RecyclerView.Adapter<ListingAdapter.ViewHolder>() {
+    var movieList: MutableList<MovieModel>? = null
+    var itemClickListener: ItemClickListener? = null
+    fun init(movieList: MutableList<MovieModel>?, itemClickListener: ItemClickListener?) {
+        this.movieList = movieList
+        this.itemClickListener = itemClickListener
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
         var view = LayoutInflater.from(parent?.context).inflate(R.layout.item_movie, parent, false)
         var viewHolder = ViewHolder(view);
@@ -34,8 +40,7 @@ class ListingAdapter(var movieList: MutableList<MovieModel>?, var itemClickListe
 
         if (position == movieList?.size) {
             initShowMore(holder)
-        }
-        else {
+        } else {
             var movie: MovieModel? = movieList?.get(position)
             updateUI(holder, movie)
         }
@@ -43,7 +48,7 @@ class ListingAdapter(var movieList: MutableList<MovieModel>?, var itemClickListe
 
     private fun initShowMore(holder: ViewHolder?) {
         holder?.imgMore?.visibility = View.VISIBLE
-        holder?.imgMore?.setOnClickListener({v -> itemClickListener?.onMoreBtnClicked()})
+        holder?.imgMore?.setOnClickListener({ v -> itemClickListener?.onMoreBtnClicked() })
     }
 
     private fun updateUI(holder: ViewHolder?, movie: MovieModel?) {
@@ -83,7 +88,7 @@ class ListingAdapter(var movieList: MutableList<MovieModel>?, var itemClickListe
         var imgMovie: ImageView? = null
         var tvTitle: TextView? = null
         var titleBackground: View? = null
-        var imgMore: ImageView ?= null
+        var imgMore: ImageView? = null
 
         init {
             imgMovie = itemView?.findViewById<View>(R.id.img_movie_poster) as ImageView
