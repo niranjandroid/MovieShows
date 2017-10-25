@@ -21,6 +21,6 @@ class ListingActivity : BaseAbstractActivity() {
     }
 
     override fun init() {
-        navigateToFragment(ListingFragment.newInstance(), "")
+        navigateToFragment(ListingFragment.newInstance(), "", true)
     }
 }

@@ -1,6 +1,5 @@
 package com.niranjandroid.movieshows.ui.listing
 
-import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
