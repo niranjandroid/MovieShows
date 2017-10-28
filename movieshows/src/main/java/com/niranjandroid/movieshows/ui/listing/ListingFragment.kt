@@ -3,7 +3,6 @@ package com.niranjandroid.movieshows.ui.listing
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,8 +14,8 @@ import com.niranjandroid.movieshows.data.model.MovieListModel
 import com.niranjandroid.movieshows.data.model.MovieModel
 import com.niranjandroid.movieshows.ui.base.BaseAbstractFragment
 import com.niranjandroid.movieshows.ui.details.DetailsActivity
+import kotlinx.android.synthetic.main.content_movie_listing.*
 import javax.inject.Inject
-
 
 
 /**
@@ -25,7 +24,6 @@ import javax.inject.Inject
 
 class ListingFragment : BaseAbstractFragment(), ListingContract.View, ItemClickListener {
 
-    var listMovies: RecyclerView? = null
 
     @Inject
     @JvmField var listingAdapter: ListingAdapter? = null
@@ -55,9 +53,8 @@ class ListingFragment : BaseAbstractFragment(), ListingContract.View, ItemClickL
         presenter?.attachView(this)
         presenter?.initMoviesList();
         listingAdapter?.init(mMovieList, this)
-        listMovies = activity.findViewById<View>(R.id.list_movies) as RecyclerView
-        listMovies?.layoutManager = GridLayoutManager(activity, 3)
-        listMovies?.adapter = listingAdapter
+        listMovies.layoutManager = GridLayoutManager(activity, 3)
+        listMovies.adapter = listingAdapter
     }
 
     override fun onFetchingMovies(movieListModel: MovieListModel) {
