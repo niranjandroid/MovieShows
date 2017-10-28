@@ -37,7 +37,7 @@ ext{
 
     //app dependencies
     supportLibraryVersion = "26.+"
-    architectureComponentsVersion = "1.0.0-alpha3"
+    architectureComponentsVersion = "1.0.0-alpha9"
     butterknifeVersion = "8.8.1"
     retrofitVersion = "2.3.0"
     rxbindingVersion = '2.0.0'

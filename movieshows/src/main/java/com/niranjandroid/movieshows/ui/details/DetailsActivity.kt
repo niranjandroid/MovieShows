@@ -18,7 +18,7 @@ class DetailsActivity : BaseAbstractActivity() {
         super.onCreate(savedInstanceState)
         setViewToFullScreen()
         setContentView(R.layout.activity_container)
-        (findViewById<View>(R.id.toolbar) as Toolbar)?.visibility = View.GONE
+        (findViewById<View>(R.id.toolbar) as Toolbar).visibility = View.GONE
         init()
     }
 

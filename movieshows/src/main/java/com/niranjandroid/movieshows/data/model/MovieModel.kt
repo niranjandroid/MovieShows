@@ -1,37 +1,64 @@
 package com.niranjandroid.movieshows.data.model
 
-import android.arch.lifecycle.ViewModel
+import android.arch.persistence.room.ColumnInfo
+import android.arch.persistence.room.Entity
+import android.arch.persistence.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
+import com.niranjandroid.movieshows.data.Config
 
-class MovieModel : ViewModel() {
+
+@Entity(tableName = Config.MOVIE_TABLE_NAME)
+data class MovieModel (
 
     @SerializedName("adult")
-    var adult: Boolean? = null
+    var adult: Boolean? = null,
+
     @SerializedName("backdrop_path")
-    var backdropPath: String? = null
+    @ColumnInfo(name ="backdrop_path")
+    var backdropPath: String? = null,
+
     @SerializedName("genre_ids")
-    var genreIds: List<Long>? = null
+    @ColumnInfo(name ="genre_ids")
+    var genreIds: List<Long>? = null,
+
+    @PrimaryKey
     @SerializedName("id")
-    var id: Long? = null
+    val id: Long,
+
     @SerializedName("original_language")
-    var originalLanguage: String? = null
+    @ColumnInfo(name ="original_language")
+    var originalLanguage: String? = null,
+
     @SerializedName("original_title")
-    var originalTitle: String? = null
+    @ColumnInfo(name ="original_title")
+    var originalTitle: String? = null,
+
     @SerializedName("overview")
-    var overview: String? = null
+    var overview: String? = null,
+
     @SerializedName("popularity")
-    var popularity: Double? = null
+    var popularity: Double? = null,
+
     @SerializedName("poster_path")
-    var posterPath: String? = null
+    @ColumnInfo(name ="poster_path")
+    var posterPath: String? = null,
+
     @SerializedName("release_date")
-    var releaseDate: String? = null
+    @ColumnInfo(name ="release_date")
+    var releaseDate: String? = null,
+
     @SerializedName("title")
-    var title: String? = null
+    var title: String? = null,
+
     @SerializedName("video")
-    var video: Boolean? = null
+    var video: Boolean? = null,
+
     @SerializedName("vote_average")
-    var voteAverage: Double? = null
+    @ColumnInfo(name ="vote_average")
+    var voteAverage: Double? = null,
+
     @SerializedName("vote_count")
+    @ColumnInfo(name ="vote_count")
     var voteCount: Long? = null
 
-}
+)

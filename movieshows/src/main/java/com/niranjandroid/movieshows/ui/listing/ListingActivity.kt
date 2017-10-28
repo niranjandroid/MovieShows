@@ -1,11 +1,10 @@
 package com.niranjandroid.movieshows.ui.listing
 
 import android.os.Bundle
-import android.support.v7.widget.Toolbar
-import android.view.View
 import com.niranjandroid.movieshows.R
 import com.niranjandroid.movieshows.ui.base.BaseAbstractActivity
 import com.niranjandroid.movieshows.ui.base.BaseContract
+import kotlinx.android.synthetic.main.activity_container.*
 
 class ListingActivity : BaseAbstractActivity() {
 
@@ -15,8 +14,7 @@ class ListingActivity : BaseAbstractActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_container)
-        val toolbar = findViewById<View>(R.id.toolbar) as Toolbar
-        setSupportActionBar(toolbar);
+        setSupportActionBar(this.toolbar);
         init()
     }
 

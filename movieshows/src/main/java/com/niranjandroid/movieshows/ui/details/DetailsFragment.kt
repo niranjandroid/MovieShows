@@ -46,7 +46,7 @@ class DetailsFragment : BaseAbstractFragment(){
     }
 
     override fun init() {
-        (activity.application as App)?.getDetailsComponent()?.inject(this)
+        (activity.application as App).getDetailsComponent()?.inject(this)
         movie = Gson().fromJson(arguments?.getString(Constants.MOVIE_OBJ), MovieModel::class.java)
         initViews();
         updateData();

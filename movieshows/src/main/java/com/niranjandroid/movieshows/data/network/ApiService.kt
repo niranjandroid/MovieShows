@@ -2,7 +2,7 @@ package com.niranjandroid.movieshows.data.network
 
 import com.niranjandroid.movieshows.data.model.Genres
 import com.niranjandroid.movieshows.data.model.MovieListModel
-import io.reactivex.Observable
+import io.reactivex.Flowable
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -15,21 +15,21 @@ interface ApiService {
 
     //popular movies
     @GET("movie/popular")
-    fun getPopularMovies(@Query("page") pageNum: String): Observable<MovieListModel>
+    fun getPopularMovies(@Query("page") pageNum: String): Flowable<MovieListModel>
 
     //popular movies
     @GET("movie/now_playing")
-    fun getNowPlayingMovies(@Query("page") pageNum: String): Observable<MovieListModel>
+    fun getNowPlayingMovies(@Query("page") pageNum: String): Flowable<MovieListModel>
 
     //top rated movies
     @GET("movie/top_rated")
-    fun getTopRatedMovies(@Query("page") pageNum: String): Observable<MovieListModel>
+    fun getTopRatedMovies(@Query("page") pageNum: String): Flowable<MovieListModel>
 
     // upcoming movies
     @GET("movie/upcoming")
-    fun getUpcomingMovies(@Query("page") pageNum : String) : Observable<MovieListModel>
+    fun getUpcomingMovies(@Query("page") pageNum : String) : Flowable<MovieListModel>
 
     //genres
     @GET("genre/movie/list")
-    fun getGenres() : Observable<Genres>
+    fun getGenres() : Flowable<Genres>
 }

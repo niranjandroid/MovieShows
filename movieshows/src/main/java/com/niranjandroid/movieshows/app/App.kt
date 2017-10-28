@@ -4,6 +4,7 @@ import android.app.Application
 import com.crashlytics.android.Crashlytics
 import com.facebook.stetho.Stetho
 import com.niranjandroid.movieshows.Constants
+import com.niranjandroid.movieshows.data.DatabaseModule
 import com.niranjandroid.movieshows.data.network.NetworkModule
 import com.niranjandroid.movieshows.data.prefs.PreferencesHelper
 import com.niranjandroid.movieshows.ui.details.DetailsComponent
@@ -24,6 +25,7 @@ class App : Application() {
                 .builder()
                 .appModule(AppModule(this))
                 .networkModule(NetworkModule())
+                .databaseModule(DatabaseModule())
                 .build()
     }
 
@@ -62,7 +64,7 @@ class App : Application() {
     }
 
     fun getMovieListingComponent(): ListingComponent? {
-        mListingComponent = mAppComponent?.plus(ListingModule())
+        mListingComponent = mAppComponent.plus(ListingModule())
         return mListingComponent
     }
 
@@ -71,7 +73,7 @@ class App : Application() {
     }
 
     fun getDetailsComponent(): DetailsComponent? {
-        mDetailsComponent = mAppComponent?.plus(DetailsModule())
+        mDetailsComponent = mAppComponent.plus(DetailsModule())
         return mDetailsComponent
     }
 

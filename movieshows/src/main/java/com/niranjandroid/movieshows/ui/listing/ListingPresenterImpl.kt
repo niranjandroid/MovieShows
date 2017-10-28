@@ -25,24 +25,37 @@ class ListingPresenterImpl(private var interactor: ListingContract.Interactor?)
         compositeDisposable.add(interactor?.fetchPopularMovies("1", object : ApiCallBack<MovieListModel> {
             override fun onSuccess(movieListModel: MovieListModel) {
                 view?.onFetchingMovies(movieListModel)
+               // interactor?.saveMovieList(movieListModel)
                 fetchGenres()
             }
 
             override fun onError(throwable: Throwable) {
-                Log.d("Niranjan", throwable?.message +"")
-                //handle error through rx bus
+                Log.d("Niranjan", throwable.message +"")
+                loadMoviesFromLocalDB("1")
+            }
+        }))
+    }
+
+    fun loadMoviesFromLocalDB(pageNum: String) {
+        compositeDisposable.add(interactor?.getMovieModelFromLocalByPage(pageNum, object : ApiCallBack<MovieListModel> {
+            override fun onSuccess(t: MovieListModel) {
+                view?.onFetchingMovies(t)
+            }
+
+            override fun onError(throwable: Throwable) {
+
             }
         }))
     }
 
     fun fetchGenres() {
         compositeDisposable.add(interactor?.fetchGenres(object : ApiCallBack<Genres> {
-            override fun onSuccess(genres: Genres) {
+            override fun onSuccess(t: Genres) {
                 //TODO save genres
             }
 
             override fun onError(throwable: Throwable) {
-                Log.d("Niranjan", throwable?.message +"")
+                Log.d("Niranjan", throwable.message +"")
             }
         }))
     }
@@ -51,10 +64,12 @@ class ListingPresenterImpl(private var interactor: ListingContract.Interactor?)
         compositeDisposable.add(interactor?.fetchPopularMovies(pageNum.toString(), object : ApiCallBack<MovieListModel> {
             override fun onSuccess(movieListModel: MovieListModel) {
                 view?.updateMovies(movieListModel)
+                interactor?.saveMovieList(movieListModel)
             }
 
             override fun onError(throwable: Throwable) {
-                Log.d("Niranjan", throwable?.message +"")
+                Log.d("Niranjan", throwable.message +"")
+                loadMoviesFromLocalDB(pageNum.toString());
                 //handle error through rx bus
             }
         }))

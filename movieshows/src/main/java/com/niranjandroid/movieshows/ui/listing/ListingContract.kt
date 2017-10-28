@@ -23,7 +23,9 @@ interface ListingContract {
     }
 
     interface Interactor {
-        fun fetchPopularMovies(pageNum : String, apiCallBack: ApiCallBack<MovieListModel>) : Disposable
+        fun fetchPopularMovies(pageNum: String, apiCallBack: ApiCallBack<MovieListModel>): Disposable
         fun fetchGenres(apiCallBack: ApiCallBack<Genres>): Disposable
+        fun saveMovieList(movieListModel: MovieListModel)
+        fun getMovieModelFromLocalByPage(pageNum: String, apiCallBack: ApiCallBack<MovieListModel>): Disposable
     }
 }

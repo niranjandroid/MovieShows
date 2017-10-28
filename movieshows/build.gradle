@@ -1,3 +1,8 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'io.fabric'
 buildscript {
     repositories {
         maven { url 'https://maven.fabric.io/public' }
@@ -8,15 +13,6 @@ buildscript {
     dependencies {
         classpath "io.fabric.tools:gradle:$rootProject.ext.fabricGradleVersion"
     }
-}
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
-apply plugin: 'kotlin-android-extensions'
-apply plugin: 'io.fabric'
-repositories {
-    maven { url 'https://maven.fabric.io/public' }
-    mavenCentral()
 }
 
 
@@ -95,21 +91,33 @@ android {
     lintOptions {
         abortOnError false
     }
+
+    kapt {
+        correctErrorTypes = true
+    }
+
+    sourceSets {
+        main.java.srcDirs += rootProject.ext.applicationId
+    }
 }
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
 
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+
     // App's dependencies
     compile "com.android.support:appcompat-v7:$rootProject.ext.supportLibraryVersion"
     compile "com.android.support:design:$rootProject.ext.supportLibraryVersion"
     compile "com.android.support:support-v4:$rootProject.ext.supportLibraryVersion"
     compile "com.android.support:palette-v7:$rootProject.ext.supportLibraryVersion"
+
     //architecture components
+    // Lifecycle arch
     compile "android.arch.lifecycle:runtime:$rootProject.architectureComponentsVersion"
     compile "android.arch.lifecycle:extensions:$rootProject.architectureComponentsVersion"
     kapt "android.arch.lifecycle:compiler:$rootProject.architectureComponentsVersion"
+    // Room
     compile "android.arch.persistence.room:runtime:$rootProject.architectureComponentsVersion"
     kapt "android.arch.persistence.room:compiler:$rootProject.architectureComponentsVersion"
     compile "android.arch.persistence.room:rxjava2:$rootProject.architectureComponentsVersion"
@@ -134,7 +142,7 @@ dependencies {
     //Event bus
     compile "org.greenrobot:eventbus:$eventbusVersion"
 
-    //Dagger
+    //Dagger 2
     compile "com.google.dagger:dagger:$daggerVersion"
     kapt "com.google.dagger:dagger-compiler:$daggerVersion"
     provided 'javax.annotation:jsr250-api:1.0'
