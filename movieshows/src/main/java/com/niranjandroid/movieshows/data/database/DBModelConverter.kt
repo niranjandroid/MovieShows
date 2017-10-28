@@ -24,12 +24,12 @@ class DBModelConverter {
 
     @TypeConverter
     fun fromDatesString(value: String): Dates? {
-        val listType = object : TypeToken<Dates>() {}.type
+        val listType = object : TypeToken<Dates?>() {}.type
         return Gson().fromJson<Dates>(value, listType)
     }
 
     @TypeConverter
-    fun fromDatesList(dates: Dates): String {
+    fun fromDatesList(dates: Dates?): String {
         val gson = Gson()
         return gson.toJson(dates)
     }
@@ -41,8 +41,8 @@ class DBModelConverter {
     }
 
     @TypeConverter
-    fun fromMovieModelsList(dates: List<MovieModel>): String {
+    fun fromMovieModelsList(movies: List<MovieModel>): String {
         val gson = Gson()
-        return gson.toJson(dates)
+        return gson.toJson(movies)
     }
 }

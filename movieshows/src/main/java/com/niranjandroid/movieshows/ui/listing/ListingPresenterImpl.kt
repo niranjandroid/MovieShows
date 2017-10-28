@@ -25,7 +25,7 @@ class ListingPresenterImpl(private var interactor: ListingContract.Interactor?)
         compositeDisposable.add(interactor?.fetchPopularMovies("1", object : ApiCallBack<MovieListModel> {
             override fun onSuccess(movieListModel: MovieListModel) {
                 view?.onFetchingMovies(movieListModel)
-               // interactor?.saveMovieList(movieListModel)
+                interactor?.saveMovieList(movieListModel)
                 fetchGenres()
             }
 
@@ -43,7 +43,7 @@ class ListingPresenterImpl(private var interactor: ListingContract.Interactor?)
             }
 
             override fun onError(throwable: Throwable) {
-
+                Log.d("ERROR", throwable.message)
             }
         }))
     }
@@ -51,7 +51,7 @@ class ListingPresenterImpl(private var interactor: ListingContract.Interactor?)
     fun fetchGenres() {
         compositeDisposable.add(interactor?.fetchGenres(object : ApiCallBack<Genres> {
             override fun onSuccess(t: Genres) {
-                //TODO save genres
+                t.genres?.let {interactor?.saveGenres(t?.genres!!)}
             }
 
             override fun onError(throwable: Throwable) {
@@ -68,7 +68,6 @@ class ListingPresenterImpl(private var interactor: ListingContract.Interactor?)
             }
 
             override fun onError(throwable: Throwable) {
-                Log.d("Niranjan", throwable.message +"")
                 loadMoviesFromLocalDB(pageNum.toString());
                 //handle error through rx bus
             }

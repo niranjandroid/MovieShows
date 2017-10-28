@@ -1,6 +1,7 @@
 package com.niranjandroid.movieshows.ui.listing
 
 
+import com.niranjandroid.movieshows.data.database.GenreDao
 import com.niranjandroid.movieshows.data.database.MovieListDao
 import com.niranjandroid.movieshows.data.network.ApiService
 import com.niranjandroid.movieshows.ui.base.BaseScope
@@ -16,8 +17,9 @@ class ListingModule {
 
     @Provides
     @BaseScope
-    fun provideInteractor(apiService: ApiService, movieListDao: MovieListDao): ListingContract.Interactor {
-        return ListingInteractorImpl(apiService, movieListDao)
+    fun provideInteractor(apiService: ApiService,
+                          movieListDao: MovieListDao, genreDao: GenreDao): ListingContract.Interactor {
+        return ListingInteractorImpl(apiService, movieListDao, genreDao)
     }
 
     @Provides

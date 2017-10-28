@@ -1,5 +1,6 @@
 package com.niranjandroid.movieshows.ui.listing
 
+import com.niranjandroid.movieshows.data.model.Genre
 import com.niranjandroid.movieshows.data.model.Genres
 import com.niranjandroid.movieshows.data.model.MovieListModel
 import com.niranjandroid.movieshows.data.network.ApiCallBack
@@ -27,5 +28,6 @@ interface ListingContract {
         fun fetchGenres(apiCallBack: ApiCallBack<Genres>): Disposable
         fun saveMovieList(movieListModel: MovieListModel)
         fun getMovieModelFromLocalByPage(pageNum: String, apiCallBack: ApiCallBack<MovieListModel>): Disposable
+        fun saveGenres(genres: List<Genre>)
     }
 }
