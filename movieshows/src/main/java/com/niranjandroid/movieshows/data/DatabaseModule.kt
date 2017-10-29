@@ -2,7 +2,6 @@ package com.niranjandroid.movieshows.data
 
 import android.arch.persistence.room.Room
 import android.content.Context
-import com.niranjandroid.movieshows.data.database.GenreDao
 import com.niranjandroid.movieshows.data.database.MovieDao
 import com.niranjandroid.movieshows.data.database.MovieListDao
 import com.niranjandroid.movieshows.data.database.MovieShowsDB
@@ -47,10 +46,5 @@ class DatabaseModule {
         return movieShowsDB.movieDao()
     }
 
-    @Provides
-    @Singleton
-    fun provideGenresDao(movieShowsDB: MovieShowsDB) : GenreDao {
-        return movieShowsDB.genresDao()
-    }
 
 }

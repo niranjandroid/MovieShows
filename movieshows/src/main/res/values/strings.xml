@@ -3,4 +3,5 @@
     <string name="title_activity_movie_listing">Movies</string>
     <string name="info_rating">%1$s/10 (%2$s votes)</string>
     <string name="txt_more">+</string>
+    <string name="txt_more_word">More</string>
 </resources>

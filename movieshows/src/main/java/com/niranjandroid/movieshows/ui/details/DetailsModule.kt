@@ -1,7 +1,9 @@
 package com.niranjandroid.movieshows.ui.details
 
+import com.niranjandroid.movieshows.data.database.MovieDao
 import com.niranjandroid.movieshows.data.network.ApiService
 import com.niranjandroid.movieshows.ui.base.BaseScope
+import com.niranjandroid.movieshows.ui.base.PostersHorizontalAdapter
 import dagger.Module
 import dagger.Provides
 
@@ -13,13 +15,19 @@ class DetailsModule {
 
     @Provides
     @BaseScope
-    fun provideInteractor(apiService: ApiService): DetailsContract.Interactor {
-        return DetailsInteractorImpl(apiService)
+    fun provideInteractor(apiService: ApiService, movieDao: MovieDao): DetailsContract.Interactor {
+        return DetailsInteractorImpl(apiService, movieDao)
     }
 
     @Provides
     @BaseScope
     fun providePresenter(interactor: DetailsContract.Interactor): DetailsContract.Presenter {
         return DetailsPresenterImpl(interactor)
+    }
+
+    @Provides
+    @BaseScope
+    fun provideHorizontalAdapter(): PostersHorizontalAdapter {
+        return PostersHorizontalAdapter()
     }
 }

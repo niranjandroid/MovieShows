@@ -1,9 +1,11 @@
 package com.niranjandroid.movieshows.data.network
 
-import com.niranjandroid.movieshows.data.model.Genres
+import com.niranjandroid.movieshows.data.model.ImagesModel
 import com.niranjandroid.movieshows.data.model.MovieListModel
+import com.niranjandroid.movieshows.data.model.MovieModel
 import io.reactivex.Flowable
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 /**
@@ -27,9 +29,15 @@ interface ApiService {
 
     // upcoming movies
     @GET("movie/upcoming")
-    fun getUpcomingMovies(@Query("page") pageNum : String) : Flowable<MovieListModel>
+    fun getUpcomingMovies(@Query("page") pageNum: String): Flowable<MovieListModel>
 
-    //genres
-    @GET("genre/movie/list")
-    fun getGenres() : Flowable<Genres>
+    //images
+    @GET("movie/{movie_id}/images")
+    fun getImages(@Path("movie_id") id: Long?,
+                  @Query("include_image_language") query : String): Flowable<ImagesModel>
+
+    @GET("movie/{movie_id}")
+    fun getMovieDetails(@Path("movie_id") id: Long?,
+                        @Query("include_image_language") query : String,
+                        @Query("append_to_response") query2 : String): Flowable<MovieModel>
 }

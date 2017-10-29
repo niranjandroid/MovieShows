@@ -1,6 +1,5 @@
 package com.niranjandroid.movieshows.data.model
 
-import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
@@ -9,56 +8,130 @@ import com.niranjandroid.movieshows.data.Config
 
 @Entity(tableName = Config.MOVIE_TABLE_NAME)
 data class MovieModel (
+        @PrimaryKey
+        @SerializedName("id")
+        var id: Long?,
 
-    @SerializedName("adult")
-    var adult: Boolean? = null,
+        @SerializedName("adult")
+        var adult: Boolean? = null,
 
-    @SerializedName("backdrop_path")
-    @ColumnInfo(name ="backdrop_path")
-    var backdropPath: String? = null,
+        @SerializedName("backdrop_path")
+        var backdropPath: String? = null,
 
-    @SerializedName("genre_ids")
-    @ColumnInfo(name ="genre_ids")
-    var genreIds: List<Long>? = null,
+        @SerializedName("budget")
+        var budget: Long? = null,
 
-    @PrimaryKey
-    @SerializedName("id")
-    val id: Long,
+        @SerializedName("genres")
+        var genres: List<Genre>? = null,
 
-    @SerializedName("original_language")
-    @ColumnInfo(name ="original_language")
-    var originalLanguage: String? = null,
+        @SerializedName("homepage")
+        var homepage: String? = null,
 
-    @SerializedName("original_title")
-    @ColumnInfo(name ="original_title")
-    var originalTitle: String? = null,
+        @SerializedName("imdb_id")
+        var imdbId: String? = null,
 
-    @SerializedName("overview")
-    var overview: String? = null,
+        @SerializedName("original_language")
+        var originalLanguage: String? = null,
 
-    @SerializedName("popularity")
-    var popularity: Double? = null,
+        @SerializedName("original_title")
+        var originalTitle: String? = null,
 
-    @SerializedName("poster_path")
-    @ColumnInfo(name ="poster_path")
-    var posterPath: String? = null,
+        @SerializedName("overview")
+        var overview: String? = null,
 
-    @SerializedName("release_date")
-    @ColumnInfo(name ="release_date")
-    var releaseDate: String? = null,
+        @SerializedName("popularity")
+        var popularity: Double? = null,
 
-    @SerializedName("title")
-    var title: String? = null,
+        @SerializedName("poster_path")
+        var posterPath: String? = null,
 
-    @SerializedName("video")
-    var video: Boolean? = null,
+        @SerializedName("production_companies")
+        var productionCompanies: List<ProductionCompany>? = null,
 
-    @SerializedName("vote_average")
-    @ColumnInfo(name ="vote_average")
-    var voteAverage: Double? = null,
+        @SerializedName("production_countries")
+        var productionCountries: List<ProductionCountry>? = null,
 
-    @SerializedName("vote_count")
-    @ColumnInfo(name ="vote_count")
-    var voteCount: Long? = null
+        @SerializedName("release_date")
+        var releaseDate: String? = null,
 
+        @SerializedName("revenue")
+        var revenue: Long? = null,
+
+        @SerializedName("runtime")
+        var runtime: Long? = null,
+
+        @SerializedName("spoken_languages")
+        var spokenLanguages: List<SpokenLanguage>? = null,
+
+        @SerializedName("status")
+        var status: String? = null,
+
+        @SerializedName("tagline")
+        var tagline: String? = null,
+
+        @SerializedName("title")
+        var title: String? = null,
+
+        @SerializedName("video")
+        var video: Boolean? = null,
+
+        @SerializedName("vote_average")
+        var voteAverage: Double? = null,
+
+        @SerializedName("vote_count")
+        var voteCount: Long? = null,
+
+        @SerializedName("images")
+        var images: ImagesModel,
+
+        @SerializedName("videos")
+        var videos: VideoModel
+)
+
+class ProductionCompany(
+
+        @SerializedName("id")
+        var id: Long,
+
+        @SerializedName("name")
+        var name: String? = null
+
+)
+
+data class ProductionCountry(
+
+        @SerializedName("iso_3166_1")
+        var iso31661: String,
+        @SerializedName("name")
+        var name: String? = null
+)
+
+data class SpokenLanguage(
+        @SerializedName("iso_639_1")
+        var iso6391: String,
+
+        @SerializedName("name")
+        var name: String? = null
+)
+
+data class VideoModel (
+        @SerializedName("results")
+        var videos : List<Video>?
+)
+
+data class Video(
+        @SerializedName("id")
+        var id: String,
+
+        @SerializedName("key")
+        var key: String,
+
+        @SerializedName("name")
+        var name: String,
+
+        @SerializedName("type")
+        var type: String?,
+
+        @SerializedName("site")
+        var site: String?
 )

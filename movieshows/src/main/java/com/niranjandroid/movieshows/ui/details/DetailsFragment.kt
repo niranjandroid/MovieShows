@@ -1,36 +1,35 @@
 package com.niranjandroid.movieshows.ui.details
 
 import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import com.bumptech.glide.Glide
 import com.google.gson.Gson
 import com.niranjandroid.movieshows.Constants
 import com.niranjandroid.movieshows.R
 import com.niranjandroid.movieshows.app.App
 import com.niranjandroid.movieshows.data.model.MovieModel
-import com.niranjandroid.movieshows.data.network.ApiMedia
 import com.niranjandroid.movieshows.ui.base.BaseAbstractFragment
+import com.niranjandroid.movieshows.ui.base.PostersHorizontalAdapter
+import kotlinx.android.synthetic.main.fragment_details.*
 import javax.inject.Inject
 
 /**
  * Created by Niranjan P on 10/21/2017.
  */
 
-class DetailsFragment : BaseAbstractFragment(){
+class DetailsFragment : BaseAbstractFragment(), DetailsContract.View {
 
     private var movie : MovieModel ?= null
 
-    private var imgMovie: ImageView? = null
-    private var tvTitle: TextView? = null
-    private var tvReleaseDate: TextView? = null
-    private var tvRating: TextView? = null
-
     @Inject
     override lateinit var presenter: DetailsContract.Presenter
+
+    private var images : MutableList<String>? = ArrayList()
+
+    @Inject
+    @JvmField var posterHorizontalAdapter : PostersHorizontalAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,30 +46,38 @@ class DetailsFragment : BaseAbstractFragment(){
 
     override fun init() {
         (activity.application as App).getDetailsComponent()?.inject(this)
+        presenter.attachView(this)
         movie = Gson().fromJson(arguments?.getString(Constants.MOVIE_OBJ), MovieModel::class.java)
-        initViews();
         updateData();
+        movie?.backdropPath?.let{images?.add(movie?.backdropPath!!)}
+        posterHorizontalAdapter?.init(images)
+        listPosters.layoutManager =  LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+        listPosters.adapter = posterHorizontalAdapter
+        presenter?.getMovieDetails(movie?.id)
     }
 
-    private fun initViews() {
-        imgMovie = activity?.findViewById<View>(R.id.img_movie) as ImageView
-        tvTitle = activity?.findViewById<View>(R.id.tv_title) as TextView
-        tvReleaseDate = activity?.findViewById<View>(R.id.tv_release_date) as TextView
-        tvRating = activity?.findViewById<View>(R.id.tv_rating) as TextView
+    override fun onFetchingMovieDetails(movieModel: MovieModel) {
+        movie = movieModel
+        updateData()
     }
 
     private fun updateData() {
-        Glide.with(activity).load(ApiMedia.getPosterPath(movie?.posterPath)).into(imgMovie)
-        tvTitle?.text = movie?.title
+        var title = movie?.title
+        movie?.tagline?.let { title = "$title (${movie?.tagline})" }
+        tvTitle?.text = title
         tvReleaseDate?.text = movie?.releaseDate
         tvRating?.text = String.format(activity.getString(R.string.info_rating),
                 movie?.voteAverage, movie?.voteCount)
 
+        tvGenres.text = presenter.getGenres(movie?.genres)
+        tvSummary.text = movie?.overview
+        movie?.images?.let { onFetchingImages(presenter.getImagesFromImageModel(movie?.images!!)) }
     }
+
 
     override fun onDestroy() {
         super.onDestroy()
-        (activity.application as App).releaseMovieListingComponent()
+        (activity.application as App).releaseDetailsComponent()
     }
 
     companion object {
@@ -81,5 +88,12 @@ class DetailsFragment : BaseAbstractFragment(){
             detailsFragment.arguments = bundle
             return detailsFragment
         }
+    }
+
+    override fun onFetchingImages(images: MutableList<String>) {
+        listPosters.visibility = View.VISIBLE
+        this.images?.clear()
+        this.images?.addAll(images)
+        posterHorizontalAdapter?.notifyDataSetChanged()
     }
 }

@@ -14,7 +14,7 @@ class ListingActivity : BaseAbstractActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_container)
-        setSupportActionBar(this.toolbar);
+        setSupportActionBar(toolbar);
         init()
     }
 

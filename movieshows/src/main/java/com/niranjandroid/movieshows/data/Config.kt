@@ -9,6 +9,7 @@ class Config {
         const val MOVIE_LIST_TABLE_NAME = "movie_list_table"
         const val MOVIE_TABLE_NAME = "movie_table"
         const val GENRE_TABLE_NAME = "genre_table"
+        const val MOVIE_DETAILS_TABLE_NAME = "movie_details_table"
     }
 
 }

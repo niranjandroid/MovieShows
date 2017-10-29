@@ -14,7 +14,7 @@ object ApiMedia {
         return BASE_POSTER_PATH + posterPath
     }
 
-    fun getBackdropPath(backdropPath: String): String {
+    fun getBackdropPath(backdropPath: String?): String {
         return BASR_BACKDROP_PATH + backdropPath
     }
 }
