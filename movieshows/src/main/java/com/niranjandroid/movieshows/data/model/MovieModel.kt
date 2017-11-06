@@ -46,10 +46,10 @@ data class MovieModel(
         var posterPath: String? = null,
 
         @SerializedName("production_companies")
-        var productionCompanies: List<ProductionCompany>? = null,
+        var productionCompanies: MutableList<ProductionCompany>? = null,
 
         @SerializedName("production_countries")
-        var productionCountries: List<ProductionCountry>? = null,
+        var productionCountries: MutableList<ProductionCountry>? = null,
 
         @SerializedName("release_date")
         var releaseDate: String? = null,
@@ -119,7 +119,7 @@ data class SpokenLanguage(
 
 data class VideoModel(
         @SerializedName("results")
-        var videos: List<Video>?
+        var videos: MutableList<Video>?
 )
 
 data class Video(

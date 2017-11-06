@@ -75,10 +75,31 @@
                 android:textColor="@android:color/white"/>
 
             <TextView
-                android:id="@+id/tvCast"
+                android:id="@+id/tvTrailers"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tvSummary"
+                android:layout_marginLeft="@dimen/uniform_margin"
+                android:visibility="gone"
+                android:layout_marginTop="@dimen/uniform_margin"
+                android:text="@string/txt_trailers"
+                android:textColor="@android:color/white"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/listTrailers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_below="@id/tvTrailers"
+                android:layout_marginTop="@dimen/uniform_margin">
+
+            </android.support.v7.widget.RecyclerView>
+
+            <TextView
+                android:id="@+id/tvCast"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/listTrailers"
                 android:layout_marginLeft="@dimen/uniform_margin"
                 android:visibility="gone"
                 android:layout_marginTop="@dimen/uniform_margin"

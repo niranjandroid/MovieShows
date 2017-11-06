@@ -1,6 +1,8 @@
 package com.niranjandroid.movieshows.ui.details
 
+import android.content.Intent
 import android.graphics.Bitmap
+import android.net.Uri
 import android.support.v4.content.ContextCompat
 import android.support.v7.graphics.Palette
 import android.support.v7.widget.RecyclerView
@@ -16,35 +18,56 @@ import com.bumptech.glide.request.transition.Transition
 import com.niranjandroid.movieshows.R
 import com.niranjandroid.movieshows.data.model.CastModel
 import com.niranjandroid.movieshows.data.model.Crew
+import com.niranjandroid.movieshows.data.model.Video
 import com.niranjandroid.movieshows.data.network.ApiMedia
 import kotlinx.android.synthetic.main.item_cast_crew.view.*
 
 /**
  * Created by Niranjan P on 11/6/2017.
  */
-class CastsHorizontalAdapter() : RecyclerView.Adapter<CastsHorizontalAdapter.ViewHolder>() {
+class ImageHorizontalAdapter() : RecyclerView.Adapter<ImageHorizontalAdapter.ViewHolder>() {
     var castList: MutableList<CastModel> = ArrayList()
     var crewList: MutableList<Crew> = ArrayList()
-    var isCasts: Boolean = false
+    var trailers: MutableList<Video> = ArrayList()
+    val CAST = 0
+    val CREW = 1
+    val TRAILERS = 2
+    var type: Int = CAST
 
     fun initWithCasts(castList: MutableList<CastModel>) {
         this.castList = castList
-        isCasts = true
+        type = CAST
     }
 
     fun initWithCrew(crewList: MutableList<Crew>) {
         this.crewList = crewList
-        isCasts = false
+        type = CREW
+    }
+
+    fun initWithTrailers(videos: MutableList<Video>) {
+        this.trailers = videos
+        type = TRAILERS
     }
 
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
         var viewHolderModel = getViewHolderModel(position)
         holder?.itemView?.tvDetails?.text = viewHolderModel.detail
         viewHolderModel.imgPath?.let { loadImage(holder, viewHolderModel.imgPath) }
+        if(type == TRAILERS) {
+            val params = RecyclerView.LayoutParams(380, 300)
+            params.rightMargin = 6
+            holder?.itemView?.layoutParams = params
+            holder?.itemView?.setOnClickListener { _ -> onThumbnailClickListener(trailers.get(position), holder) }
+        }
+    }
+
+    private fun onThumbnailClickListener(video: Video, holder:ViewHolder?) {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(ApiMedia.getUrl(video)))
+        holder?.itemView?.context?.startActivity(intent)
     }
 
 
-    private fun loadImage(holder: ViewHolder?, profilePath: String?) {
+    private fun loadImage(holder: ViewHolder?, imgPath: String?) {
         val options = RequestOptions()
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
@@ -52,7 +75,7 @@ class CastsHorizontalAdapter() : RecyclerView.Adapter<CastsHorizontalAdapter.Vie
 
         Glide.with(holder?.itemView?.context)
                 .asBitmap()
-                .load(ApiMedia.getPosterPath(profilePath))
+                .load(imgPath)
                 .apply(options)
                 .into(object : BitmapImageViewTarget(holder?.itemView?.imgProfile) {
                     override fun onResourceReady(bitmap: Bitmap?, transition: Transition<in Bitmap>?) {
@@ -70,19 +93,32 @@ class CastsHorizontalAdapter() : RecyclerView.Adapter<CastsHorizontalAdapter.Vie
 
     private fun getViewHolderModel(position: Int): ViewHolderModel {
         var viewHolderModel = ViewHolderModel()
-        if (isCasts) {
-            var castModel = castList.get(position)
-            viewHolderModel.imgPath = castModel.profilePath
-            viewHolderModel.detail = "${castModel.name} as ${castModel.character}"
-        } else {
-            var crew = crewList.get(position)
-            viewHolderModel.imgPath = crew.profilePath
-            viewHolderModel.detail = "${crew.name} - ${crew.job}"
+        when (type) {
+            CAST -> {
+                var castModel = castList.get(position)
+                castModel?.profilePath?.let { viewHolderModel.imgPath = ApiMedia.getPosterPath(castModel.profilePath) }
+                viewHolderModel.detail = "${castModel.name} as ${castModel.character}"
+            }
+            CREW -> {
+                var crew = crewList.get(position)
+                crew.profilePath?.let { viewHolderModel.imgPath = ApiMedia.getPosterPath(crew.profilePath) }
+                viewHolderModel.detail = "${crew.name} - ${crew.job}"
+            }
+            TRAILERS -> {
+                var video = trailers.get(position)
+                viewHolderModel.imgPath = ApiMedia.getThumbnailUrl(video)
+                viewHolderModel.detail = video?.name
+            }
         }
         return viewHolderModel
     }
 
-    override fun getItemCount(): Int = if (isCasts) castList.size else crewList.size
+    override fun getItemCount(): Int = when (type) {
+        CAST -> castList.size
+        CREW -> crewList.size
+        TRAILERS -> trailers.size
+        else -> 0
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
         var view = LayoutInflater.from(parent?.context).inflate(R.layout.item_cast_crew, parent, false)

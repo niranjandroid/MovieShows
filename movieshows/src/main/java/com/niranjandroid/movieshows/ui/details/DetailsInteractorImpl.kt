@@ -23,7 +23,7 @@ class DetailsInteractorImpl(var apiService: ApiService, var movieDao: MovieDao) 
     }
 
     override fun fetchMovieDetails(id: Long?, apiCallBack: ApiCallBack<MovieModel>): Disposable? {
-        return RxApiHandler<MovieModel>().handle(apiService.getMovieDetails(id,"en,null", "videos,images,casts, crew"), apiCallBack)
+        return RxApiHandler<MovieModel>().handle(apiService.getMovieDetails(id,"en,null", "videos,images,casts"), apiCallBack)
     }
 
     override fun saveMovieDetails(movieModel: MovieModel) {

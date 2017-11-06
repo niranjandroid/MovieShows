@@ -12,6 +12,7 @@ import com.niranjandroid.movieshows.app.App
 import com.niranjandroid.movieshows.data.model.CastModel
 import com.niranjandroid.movieshows.data.model.Crew
 import com.niranjandroid.movieshows.data.model.MovieModel
+import com.niranjandroid.movieshows.data.model.Video
 import com.niranjandroid.movieshows.ui.base.BaseAbstractFragment
 import com.niranjandroid.movieshows.ui.base.PostersHorizontalAdapter
 import kotlinx.android.synthetic.main.fragment_details.*
@@ -32,16 +33,22 @@ class DetailsFragment : BaseAbstractFragment(), DetailsContract.View {
     @Inject
     @field:Named("cast")
     @JvmField
-    var castAdapter: CastsHorizontalAdapter? = null
+    var castAdapter: ImageHorizontalAdapter? = null
 
     @Inject
     @JvmField
     @field:Named("crew")
-    var crewAdapter: CastsHorizontalAdapter? = null
+    var crewAdapter: ImageHorizontalAdapter? = null
+
+    @Inject
+    @JvmField
+    @field:Named("trailers")
+    var trailersAdapter: ImageHorizontalAdapter? = null
 
     private var images: MutableList<String> = ArrayList()
     private var castList: MutableList<CastModel> = ArrayList()
     private var crewList: MutableList<Crew> = ArrayList()
+    private var trailers: MutableList<Video> = ArrayList()
 
     @Inject
     @JvmField
@@ -88,6 +95,10 @@ class DetailsFragment : BaseAbstractFragment(), DetailsContract.View {
         listCrew.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, isReverse)
         listCrew.adapter = crewAdapter
 
+        trailersAdapter?.initWithTrailers(trailers)
+        listTrailers.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, isReverse)
+        listTrailers.adapter = trailersAdapter
+
         presenter.getMovieDetails(movie?.id)
     }
 
@@ -98,8 +109,8 @@ class DetailsFragment : BaseAbstractFragment(), DetailsContract.View {
 
     private fun updateData() {
         var title = movie?.title
-        movie?.tagline?.let { title = "$title (${movie?.tagline})" }
-        tvTitle?.text = title
+        movie?.tagline?.let { movie?.tagline?.isNotEmpty()?.let { title = "$title (${movie?.tagline})"  }}
+        tvTitle?.text = title?.replace("()", "")
         tvReleaseDate?.text = movie?.releaseDate
         tvRating?.text = String.format(activity.getString(R.string.info_rating),
                 movie?.voteAverage, movie?.voteCount)
@@ -109,7 +120,15 @@ class DetailsFragment : BaseAbstractFragment(), DetailsContract.View {
         movie?.images?.let { updatePosters(presenter.getImagesFromImageModel(movie?.images!!)) }
         movie?.casts?.castList?.let { updateCast(movie?.casts?.castList!!) }
         movie?.casts?.crewList?.let { updateCrew(movie?.casts?.crewList!!) }
+        movie?.videos?.videos?.let { updateTrailers(movie?.videos?.videos!!) }
+    }
 
+    private fun updateTrailers(trailers : MutableList<Video>) {
+        tvTrailers.visibility = View.VISIBLE
+        listTrailers.visibility = View.VISIBLE
+        this.trailers.clear()
+        this.trailers.addAll(trailers)
+        trailersAdapter?.notifyDataSetChanged()
     }
 
     private fun updateCrew(crewList: MutableList<Crew>) {

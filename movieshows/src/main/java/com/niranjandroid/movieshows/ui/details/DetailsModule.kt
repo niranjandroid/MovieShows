@@ -35,15 +35,23 @@ class DetailsModule {
     @Provides
     @BaseScope
     @Named("cast")
-    fun provideCastAdapter(): CastsHorizontalAdapter {
-        return CastsHorizontalAdapter()
+    fun provideCastAdapter(): ImageHorizontalAdapter {
+        return ImageHorizontalAdapter()
     }
 
     @Provides
     @BaseScope
     @Named("crew")
-    fun provideCrewAdapter(): CastsHorizontalAdapter {
-        return CastsHorizontalAdapter()
+    fun provideCrewAdapter(): ImageHorizontalAdapter {
+        return ImageHorizontalAdapter()
+    }
+
+
+    @Provides
+    @BaseScope
+    @Named("trailers")
+    fun provideTrailersAdapter(): ImageHorizontalAdapter {
+        return ImageHorizontalAdapter()
     }
 
 
