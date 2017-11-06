@@ -4,4 +4,6 @@
     <string name="info_rating">%1$s/10 (%2$s votes)</string>
     <string name="txt_more">+</string>
     <string name="txt_more_word">More</string>
+    <string name="txt_casts">Cast</string>
+    <string name="txt_crew">Crew</string>
 </resources>

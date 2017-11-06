@@ -22,9 +22,9 @@ import kotlinx.android.synthetic.main.item_poster.view.*
 
 class PostersHorizontalAdapter : RecyclerView.Adapter<PostersHorizontalAdapter.ViewHolder>() {
 
-    var images: MutableList<String>? = null
+    var images: MutableList<String> = ArrayList()
 
-    fun init(images: MutableList<String>?) {
+    fun init(images: MutableList<String>) {
         this.images = images
     }
 
@@ -37,7 +37,7 @@ class PostersHorizontalAdapter : RecyclerView.Adapter<PostersHorizontalAdapter.V
         Glide.with(holder?.itemView?.context)
                 .asBitmap()
                 .apply(options)
-                .load(ApiMedia.getPosterPath(images?.get(position)))
+                .load(ApiMedia.getPosterPath(images.get(position)))
                 .into(object : BitmapImageViewTarget(holder?.itemView?.imgPoster) {
                     override fun onResourceReady(bitmap: Bitmap?, transition: Transition<in Bitmap>?) {
                         super.onResourceReady(bitmap, transition)
@@ -49,10 +49,7 @@ class PostersHorizontalAdapter : RecyclerView.Adapter<PostersHorizontalAdapter.V
         ContextCompat.getColor(holder?.itemView?.context, R.color.black_translucent_60)
                 .let { palette.getVibrantColor(it) }.let { holder?.itemView?.titleBackground?.setBackgroundColor(it) }
     }
-    override fun getItemCount(): Int {
-        images?.size?.let { return images?.size!! }
-        return 0
-    }
+    override fun getItemCount(): Int = images.size
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
         var view = LayoutInflater.from(parent?.context).inflate(R.layout.item_poster, parent, false)

@@ -9,11 +9,14 @@ import com.google.gson.Gson
 import com.niranjandroid.movieshows.Constants
 import com.niranjandroid.movieshows.R
 import com.niranjandroid.movieshows.app.App
+import com.niranjandroid.movieshows.data.model.CastModel
+import com.niranjandroid.movieshows.data.model.Crew
 import com.niranjandroid.movieshows.data.model.MovieModel
 import com.niranjandroid.movieshows.ui.base.BaseAbstractFragment
 import com.niranjandroid.movieshows.ui.base.PostersHorizontalAdapter
 import kotlinx.android.synthetic.main.fragment_details.*
 import javax.inject.Inject
+import javax.inject.Named
 
 /**
  * Created by Niranjan P on 10/21/2017.
@@ -21,18 +24,38 @@ import javax.inject.Inject
 
 class DetailsFragment : BaseAbstractFragment(), DetailsContract.View {
 
-    private var movie : MovieModel ?= null
+    private var movie: MovieModel? = null
 
     @Inject
     override lateinit var presenter: DetailsContract.Presenter
 
-    private var images : MutableList<String>? = ArrayList()
+    @Inject
+    @field:Named("cast")
+    @JvmField
+    var castAdapter: CastsHorizontalAdapter? = null
 
     @Inject
-    @JvmField var posterHorizontalAdapter : PostersHorizontalAdapter? = null
+    @JvmField
+    @field:Named("crew")
+    var crewAdapter: CastsHorizontalAdapter? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    private var images: MutableList<String> = ArrayList()
+    private var castList: MutableList<CastModel> = ArrayList()
+    private var crewList: MutableList<Crew> = ArrayList()
+
+    @Inject
+    @JvmField
+    var posterHorizontalAdapter: PostersHorizontalAdapter? = null
+
+
+    companion object {
+        fun newInstance(movie: String?): DetailsFragment {
+            val detailsFragment = DetailsFragment()
+            val bundle = Bundle()
+            bundle.putString(Constants.MOVIE_OBJ, movie)
+            detailsFragment.arguments = bundle
+            return detailsFragment
+        }
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
@@ -49,11 +72,23 @@ class DetailsFragment : BaseAbstractFragment(), DetailsContract.View {
         presenter.attachView(this)
         movie = Gson().fromJson(arguments?.getString(Constants.MOVIE_OBJ), MovieModel::class.java)
         updateData();
-        movie?.backdropPath?.let{images?.add(movie?.backdropPath!!)}
+        movie?.backdropPath?.let { images.add(movie?.backdropPath!!) }
+
+        var isReverse = false
+
         posterHorizontalAdapter?.init(images)
-        listPosters.layoutManager =  LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+        listPosters.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, isReverse)
         listPosters.adapter = posterHorizontalAdapter
-        presenter?.getMovieDetails(movie?.id)
+
+        castAdapter?.initWithCasts(castList);
+        listCast.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, isReverse)
+        listCast.adapter = castAdapter
+
+        crewAdapter?.initWithCrew(crewList)
+        listCrew.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, isReverse)
+        listCrew.adapter = crewAdapter
+
+        presenter.getMovieDetails(movie?.id)
     }
 
     override fun onFetchingMovieDetails(movieModel: MovieModel) {
@@ -71,7 +106,32 @@ class DetailsFragment : BaseAbstractFragment(), DetailsContract.View {
 
         tvGenres.text = presenter.getGenres(movie?.genres)
         tvSummary.text = movie?.overview
-        movie?.images?.let { onFetchingImages(presenter.getImagesFromImageModel(movie?.images!!)) }
+        movie?.images?.let { updatePosters(presenter.getImagesFromImageModel(movie?.images!!)) }
+        movie?.casts?.castList?.let { updateCast(movie?.casts?.castList!!) }
+        movie?.casts?.crewList?.let { updateCrew(movie?.casts?.crewList!!) }
+
+    }
+
+    private fun updateCrew(crewList: MutableList<Crew>) {
+        tvCrew.visibility = View.VISIBLE
+        listCrew.visibility = View.VISIBLE
+        this.crewList.clear()
+        this.crewList.addAll(crewList)
+        crewAdapter?.notifyDataSetChanged()
+    }
+
+    private fun updateCast(castList: MutableList<CastModel>) {
+        tvCast.visibility = View.VISIBLE
+        listCast.visibility = View.VISIBLE
+        this.castList.clear()
+        this.castList.addAll(castList)
+        castAdapter?.notifyDataSetChanged()
+    }
+
+    override fun updatePosters(images: MutableList<String>) {
+        this.images.clear()
+        this.images.addAll(images)
+        posterHorizontalAdapter?.notifyDataSetChanged()
     }
 
 
@@ -80,20 +140,4 @@ class DetailsFragment : BaseAbstractFragment(), DetailsContract.View {
         (activity.application as App).releaseDetailsComponent()
     }
 
-    companion object {
-        fun newInstance(movie : String?): DetailsFragment {
-            val detailsFragment = DetailsFragment()
-            val bundle = Bundle()
-            bundle.putString(Constants.MOVIE_OBJ, movie)
-            detailsFragment.arguments = bundle
-            return detailsFragment
-        }
-    }
-
-    override fun onFetchingImages(images: MutableList<String>) {
-        listPosters.visibility = View.VISIBLE
-        this.images?.clear()
-        this.images?.addAll(images)
-        posterHorizontalAdapter?.notifyDataSetChanged()
-    }
 }

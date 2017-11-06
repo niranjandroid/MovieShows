@@ -6,6 +6,7 @@ import com.niranjandroid.movieshows.ui.base.BaseScope
 import com.niranjandroid.movieshows.ui.base.PostersHorizontalAdapter
 import dagger.Module
 import dagger.Provides
+import javax.inject.Named
 
 /**
  * Created by Niranjan P on 10/24/2017.
@@ -30,4 +31,20 @@ class DetailsModule {
     fun provideHorizontalAdapter(): PostersHorizontalAdapter {
         return PostersHorizontalAdapter()
     }
+
+    @Provides
+    @BaseScope
+    @Named("cast")
+    fun provideCastAdapter(): CastsHorizontalAdapter {
+        return CastsHorizontalAdapter()
+    }
+
+    @Provides
+    @BaseScope
+    @Named("crew")
+    fun provideCrewAdapter(): CastsHorizontalAdapter {
+        return CastsHorizontalAdapter()
+    }
+
+
 }

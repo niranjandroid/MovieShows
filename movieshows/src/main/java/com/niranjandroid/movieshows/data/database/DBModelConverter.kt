@@ -116,4 +116,16 @@ class DBModelConverter {
         val gson = Gson()
         return gson.toJson(videoModel)
     }
+
+    @TypeConverter
+    fun fromCastsModelString(value: String): CastsModel? {
+        val listType = object : TypeToken<CastsModel?>() {}.type
+        return Gson().fromJson<CastsModel>(value, listType)
+    }
+
+    @TypeConverter
+    fun fromCastModel(castsModel: CastsModel?): String {
+        val gson = Gson()
+        return gson.toJson(castsModel)
+    }
 }

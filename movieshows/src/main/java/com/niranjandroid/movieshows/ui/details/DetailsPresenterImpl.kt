@@ -35,7 +35,7 @@ class DetailsPresenterImpl(private var interactor: DetailsContract.Interactor?) 
         compositeDisposable.add(interactor?.getImages(id, object : ApiCallBack<ImagesModel>{
             override fun onSuccess(t: ImagesModel) {
                 var images = getImagesFromImageModel(t)
-                view?.onFetchingImages(images)
+                view?.updatePosters(images)
             }
 
             override fun onError(throwable: Throwable) {
@@ -61,12 +61,12 @@ class DetailsPresenterImpl(private var interactor: DetailsContract.Interactor?) 
         var images: MutableList<String> = ArrayList()
         imagesModel.backdrops.let {
             for(image in imagesModel.backdrops!!) {
-                image.mFilePath?.let {images.add(image?.mFilePath!!) }
+                image.mFilePath?.let {images.add(image.mFilePath!!) }
             }
         }
         imagesModel.posters.let {
             for(image in imagesModel.posters!!) {
-                image.mFilePath?.let {images.add(image?.mFilePath!!) }
+                image.mFilePath?.let {images.add(image.mFilePath!!) }
             }
         }
         return images
@@ -76,11 +76,11 @@ class DetailsPresenterImpl(private var interactor: DetailsContract.Interactor?) 
         var genresVal = ""
         genres?.let {
             var i = 0;
-            for(genre in genres!!) {
+            for(genre in genres) {
                 when(i++) {
-                    0 -> genresVal = genre?.name!!
-                    genres?.size - 1 -> genresVal = "$genresVal and ${genre?.name}"
-                    else -> genresVal = "$genresVal, ${genre?.name}"
+                    0 -> genresVal = genre.name!!
+                    genres.size - 1 -> genresVal = "$genresVal and ${genre.name}"
+                    else -> genresVal = "$genresVal, ${genre.name}"
                 }
             }
         }

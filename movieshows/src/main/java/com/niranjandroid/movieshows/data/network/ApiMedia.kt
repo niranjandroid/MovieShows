@@ -6,7 +6,7 @@ package com.niranjandroid.movieshows.data.network
 
 object ApiMedia {
     val BASE_POSTER_PATH = "http://image.tmdb.org/t/p/w342"
-    val BASR_BACKDROP_PATH = "http://image.tmdb.org/t/p/w780"
+    val BASE_BACKDROP_PATH = "http://image.tmdb.org/t/p/w780"
     internal val YOUTUBE_VIDEO_URL = "http://www.youtube.com/watch?v=%1\$s"
     internal val YOUTUBE_THUMBNAIL_URL = "http://img.youtube.com/vi/%1\$s/0.jpg"
 
@@ -15,6 +15,6 @@ object ApiMedia {
     }
 
     fun getBackdropPath(backdropPath: String?): String {
-        return BASR_BACKDROP_PATH + backdropPath
+        return BASE_BACKDROP_PATH + backdropPath
     }
 }

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
-                android:background="@color/colorPrimaryDark"
                 android:layout_height="wrap_content"
+                android:background="@color/colorPrimaryDark"
                 android:orientation="vertical">
 
     <ScrollView
@@ -27,12 +27,12 @@
                 android:layout_marginLeft="@dimen/uniform_margin"
                 android:layout_marginRight="@dimen/uniform_margin"
                 android:layout_marginTop="@dimen/title_top_margin"
-                android:gravity="center"
-                android:textStyle="italic"
-                android:maxLines="1"
                 android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="1"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/title_text_size"/>
+                android:textSize="@dimen/title_text_size"
+                android:textStyle="italic"/>
 
             <TextView
                 android:id="@+id/tvReleaseDate"
@@ -41,9 +41,9 @@
                 android:layout_below="@id/listPosters"
                 android:layout_marginLeft="@dimen/uniform_margin"
                 android:layout_marginRight="@dimen/uniform_margin"
-                android:textColor="@android:color/white"
                 android:layout_marginTop="@dimen/vertical_element_gap"
-                android:text="23/10/2017"/>
+                android:textColor="@android:color/white"/>
+
             <TextView
                 android:id="@+id/tvRating"
                 android:layout_width="wrap_content"
@@ -51,28 +51,69 @@
                 android:layout_below="@id/tvReleaseDate"
                 android:layout_marginLeft="@dimen/uniform_margin"
                 android:layout_marginRight="@dimen/uniform_margin"
-                android:textColor="@android:color/white"
                 android:layout_marginTop="@dimen/vertical_element_gap"
-                android:text="9/10 (90 votes)"/>
+                android:textColor="@android:color/white"/>
+
             <TextView
                 android:id="@+id/tvGenres"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/white"
                 android:layout_below="@id/tvRating"
                 android:layout_marginLeft="@dimen/uniform_margin"
                 android:layout_marginRight="@dimen/uniform_margin"
-                android:layout_marginTop="@dimen/vertical_element_gap"/>
+                android:layout_marginTop="@dimen/vertical_element_gap"
+                android:textColor="@android:color/white"/>
 
             <TextView
                 android:id="@+id/tvSummary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/white"
                 android:layout_below="@id/tvGenres"
                 android:layout_marginLeft="@dimen/uniform_margin"
                 android:layout_marginRight="@dimen/uniform_margin"
-                android:layout_marginTop="@dimen/uniform_margin"/>
+                android:layout_marginTop="@dimen/uniform_margin"
+                android:textColor="@android:color/white"/>
+
+            <TextView
+                android:id="@+id/tvCast"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvSummary"
+                android:layout_marginLeft="@dimen/uniform_margin"
+                android:visibility="gone"
+                android:layout_marginTop="@dimen/uniform_margin"
+                android:text="@string/txt_casts"
+                android:textColor="@android:color/white"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/listCast"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_below="@id/tvCast"
+                android:layout_marginTop="@dimen/uniform_margin">
+
+            </android.support.v7.widget.RecyclerView>
+
+            <TextView
+                android:id="@+id/tvCrew"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/listCast"
+                android:visibility="gone"
+                android:layout_marginLeft="@dimen/uniform_margin"
+                android:layout_marginTop="@dimen/uniform_margin"
+                android:text="@string/txt_crew"
+                android:textColor="@android:color/white"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/listCrew"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvCrew"
+                android:visibility="gone"
+                android:layout_marginTop="@dimen/uniform_margin">
+            </android.support.v7.widget.RecyclerView>
         </RelativeLayout>
     </ScrollView>
 </RelativeLayout>

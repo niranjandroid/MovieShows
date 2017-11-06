@@ -7,7 +7,7 @@ import com.niranjandroid.movieshows.data.Config
 
 
 @Entity(tableName = Config.MOVIE_TABLE_NAME)
-data class MovieModel (
+data class MovieModel(
         @PrimaryKey
         @SerializedName("id")
         var id: Long?,
@@ -85,10 +85,13 @@ data class MovieModel (
         var images: ImagesModel,
 
         @SerializedName("videos")
-        var videos: VideoModel
+        var videos: VideoModel,
+
+        @SerializedName("casts")
+        var casts: CastsModel
 )
 
-class ProductionCompany(
+data class ProductionCompany(
 
         @SerializedName("id")
         var id: Long,
@@ -114,9 +117,9 @@ data class SpokenLanguage(
         var name: String? = null
 )
 
-data class VideoModel (
+data class VideoModel(
         @SerializedName("results")
-        var videos : List<Video>?
+        var videos: List<Video>?
 )
 
 data class Video(
@@ -134,4 +137,62 @@ data class Video(
 
         @SerializedName("site")
         var site: String?
+)
+
+data class CastsModel(
+        @SerializedName("cast")
+        var castList: MutableList<CastModel>,
+
+        @SerializedName("crew")
+        var crewList: MutableList<Crew>
+)
+
+data class CastModel(
+
+        @SerializedName("cast_id")
+        var castId: Long,
+
+        @SerializedName("character")
+        var character: String,
+
+        @SerializedName("credit_id")
+        var creditId: String,
+
+        @SerializedName("gender")
+        var gender: Int,
+
+        @SerializedName("id")
+        var id: Long? = null,
+
+        @SerializedName("name")
+        var name: String,
+
+        @SerializedName("order")
+        var order: Long,
+
+        @SerializedName("profile_path")
+        var profilePath: String? = null
+)
+
+data class Crew(
+        @SerializedName("credit_id")
+        var creditId: String,
+
+        @SerializedName("department")
+        var department: String,
+
+        @SerializedName("gender")
+        var gender: Int,
+
+        @SerializedName("id")
+        var id: Long,
+
+        @SerializedName("job")
+        var job: String,
+
+        @SerializedName("name")
+        var name: String,
+
+        @SerializedName("profile_path")
+        var profilePath: String? = null
 )

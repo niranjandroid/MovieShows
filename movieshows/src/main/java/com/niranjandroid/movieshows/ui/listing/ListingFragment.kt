@@ -50,8 +50,8 @@ class ListingFragment : BaseAbstractFragment(), ListingContract.View, ItemClickL
 
     override fun init() {
         (activity.application as App).getMovieListingComponent()?.inject(this)
-        presenter?.attachView(this)
-        presenter?.initMoviesList();
+        presenter.attachView(this)
+        presenter.initMoviesList();
         listingAdapter?.init(mMovieList, this)
         listMovies.layoutManager = GridLayoutManager(activity, 3)
         listMovies.adapter = listingAdapter
@@ -85,7 +85,7 @@ class ListingFragment : BaseAbstractFragment(), ListingContract.View, ItemClickL
 
     override fun updateMovies(movieListModel: MovieListModel) {
         this.mMovieListingModel = movieListModel
-        movieListModel?.results?.let { this.mMovieList?.addAll(it) }
+        movieListModel.results?.let { this.mMovieList?.addAll(it) }
         listingAdapter?.notifyDataSetChanged()
     }
 }

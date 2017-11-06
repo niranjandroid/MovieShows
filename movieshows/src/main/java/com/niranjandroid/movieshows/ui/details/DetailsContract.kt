@@ -14,7 +14,7 @@ import io.reactivex.disposables.Disposable
 interface DetailsContract {
 
     interface View : BaseContract.FragmentView {
-        fun onFetchingImages(images: MutableList<String>)
+        fun updatePosters(images: MutableList<String>)
         fun onFetchingMovieDetails(t: MovieModel)
     }
 

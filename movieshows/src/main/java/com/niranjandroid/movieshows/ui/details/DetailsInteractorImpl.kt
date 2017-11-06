@@ -1,6 +1,5 @@
 package com.niranjandroid.movieshows.ui.details
 
-import android.util.Log
 import com.niranjandroid.movieshows.data.database.MovieDao
 import com.niranjandroid.movieshows.data.model.ImagesModel
 import com.niranjandroid.movieshows.data.model.MovieModel
@@ -24,7 +23,7 @@ class DetailsInteractorImpl(var apiService: ApiService, var movieDao: MovieDao) 
     }
 
     override fun fetchMovieDetails(id: Long?, apiCallBack: ApiCallBack<MovieModel>): Disposable? {
-        return RxApiHandler<MovieModel>().handle(apiService.getMovieDetails(id,"en,null", "videos,images"), apiCallBack)
+        return RxApiHandler<MovieModel>().handle(apiService.getMovieDetails(id,"en,null", "videos,images,casts, crew"), apiCallBack)
     }
 
     override fun saveMovieDetails(movieModel: MovieModel) {
@@ -35,10 +34,8 @@ class DetailsInteractorImpl(var apiService: ApiService, var movieDao: MovieDao) 
                     override fun onSubscribe(@NonNull d: Disposable) {
                     }
                     override fun onComplete() {
-                        Log.d("SAVING_MM", "saved successfully")
                     }
                     override fun onError(@NonNull e: Throwable) {
-                        Log.d("ERROR_SAVING_MM", e.message)
                     }
                 })
     }
