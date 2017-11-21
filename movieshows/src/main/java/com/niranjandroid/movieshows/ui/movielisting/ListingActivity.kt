@@ -1,4 +1,4 @@
-package com.niranjandroid.movieshows.ui.listing
+package com.niranjandroid.movieshows.ui.movielisting
 
 import android.os.Bundle
 import com.niranjandroid.movieshows.R

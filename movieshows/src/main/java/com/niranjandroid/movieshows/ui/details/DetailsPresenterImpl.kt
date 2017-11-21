@@ -1,9 +1,7 @@
 package com.niranjandroid.movieshows.ui.details
 
 import android.util.Log
-import com.niranjandroid.movieshows.data.model.Genre
-import com.niranjandroid.movieshows.data.model.ImagesModel
-import com.niranjandroid.movieshows.data.model.MovieModel
+import com.niranjandroid.movieshows.data.model.*
 import com.niranjandroid.movieshows.data.network.ApiCallBack
 import io.reactivex.disposables.CompositeDisposable
 
@@ -47,14 +45,30 @@ class DetailsPresenterImpl(private var interactor: DetailsContract.Interactor?) 
     override fun getMovieDetails(id: Long?) {
         compositeDisposable.add(interactor?.fetchMovieDetails(id, object : ApiCallBack<MovieModel>{
             override fun onSuccess(t: MovieModel) {
-                view?.onFetchingMovieDetails(t)
-                interactor?.saveMovieDetails(t)
+                var movieModel = getProcessedMovieModel(t)
+                view?.onFetchingMovieDetails(movieModel)
+                interactor?.saveMovieDetails(movieModel)
             }
 
             override fun onError(throwable: Throwable) {
                 Log.d("ERROR", throwable.message)
             }
         }))
+    }
+
+    private fun getProcessedMovieModel(movieModel: MovieModel) : MovieModel {
+        var castList : MutableList<CastModel> = ArrayList()
+        var crewList : MutableList<Crew> = ArrayList()
+        for(cast in movieModel.casts.castList) {
+            cast.profilePath?.let { castList.add(cast) }
+        }
+
+        for (crew in movieModel.casts.crewList) {
+            crew.profilePath?.let { crewList.add(crew) }
+        }
+        movieModel.casts.castList = castList
+        movieModel.casts.crewList = crewList
+        return movieModel
     }
 
     override fun getImagesFromImageModel(imagesModel: ImagesModel) : MutableList<String> {

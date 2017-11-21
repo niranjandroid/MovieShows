@@ -1,4 +1,4 @@
-package com.niranjandroid.movieshows.ui.listing
+package com.niranjandroid.movieshows.ui.movielisting
 
 import android.graphics.Bitmap
 import android.support.v4.content.ContextCompat

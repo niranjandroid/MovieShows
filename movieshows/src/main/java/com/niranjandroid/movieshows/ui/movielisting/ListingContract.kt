@@ -1,4 +1,4 @@
-package com.niranjandroid.movieshows.ui.listing
+package com.niranjandroid.movieshows.ui.movielisting
 
 import com.niranjandroid.movieshows.data.model.MovieListModel
 import com.niranjandroid.movieshows.data.network.ApiCallBack
@@ -25,5 +25,8 @@ interface ListingContract {
         fun fetchPopularMovies(pageNum: String, apiCallBack: ApiCallBack<MovieListModel>): Disposable
         fun saveMovieList(movieListModel: MovieListModel)
         fun getMovieModelFromLocalByPage(pageNum: String, apiCallBack: ApiCallBack<MovieListModel>): Disposable
+        fun fetchNowPlayingMovies(pageNum: String, apiCallBack: ApiCallBack<MovieListModel>): Disposable
+        fun fetchUpcomingMovies(pageNum: String, apiCallBack: ApiCallBack<MovieListModel>): Disposable
+        fun fetchTopRatedMovies(pageNum: String, apiCallBack: ApiCallBack<MovieListModel>): Disposable
     }
 }

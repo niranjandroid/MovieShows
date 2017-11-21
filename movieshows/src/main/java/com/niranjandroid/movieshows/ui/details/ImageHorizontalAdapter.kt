@@ -52,7 +52,11 @@ class ImageHorizontalAdapter() : RecyclerView.Adapter<ImageHorizontalAdapter.Vie
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
         var viewHolderModel = getViewHolderModel(position)
         holder?.itemView?.tvDetails?.text = viewHolderModel.detail
-        viewHolderModel.imgPath?.let { loadImage(holder, viewHolderModel.imgPath) }
+        if(viewHolderModel.imgPath != null) {
+            loadImage(holder, viewHolderModel.imgPath)
+        } else {
+            Glide.with(holder?.itemView?.context).load(R.drawable.image_not_available).into(holder?.itemView?.imgProfile)
+        }
         if(type == TRAILERS) {
             val params = RecyclerView.LayoutParams(380, 300)
             params.rightMargin = 6

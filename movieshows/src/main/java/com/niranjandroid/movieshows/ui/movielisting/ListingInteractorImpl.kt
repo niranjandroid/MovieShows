@@ -1,4 +1,4 @@
-package com.niranjandroid.movieshows.ui.listing
+package com.niranjandroid.movieshows.ui.movielisting
 
 import android.util.Log
 import com.niranjandroid.movieshows.data.database.MovieListDao
@@ -21,6 +21,15 @@ class ListingInteractorImpl(var apiService: ApiService,
                             var movieListDao: MovieListDao) : ListingContract.Interactor {
     override fun fetchPopularMovies(pageNum : String, apiCallBack: ApiCallBack<MovieListModel>): Disposable =
             RxApiHandler<MovieListModel>().handle(apiService.getPopularMovies(pageNum), apiCallBack)
+
+    override fun fetchNowPlayingMovies(pageNum : String, apiCallBack: ApiCallBack<MovieListModel>): Disposable =
+            RxApiHandler<MovieListModel>().handle(apiService.getNowPlayingMovies(pageNum), apiCallBack)
+
+    override fun fetchUpcomingMovies(pageNum : String, apiCallBack: ApiCallBack<MovieListModel>): Disposable =
+            RxApiHandler<MovieListModel>().handle(apiService.getUpcomingMovies(pageNum), apiCallBack)
+
+    override fun fetchTopRatedMovies(pageNum : String, apiCallBack: ApiCallBack<MovieListModel>): Disposable =
+            RxApiHandler<MovieListModel>().handle(apiService.getTopRatedMovies(pageNum), apiCallBack)
 
     override fun saveMovieList(movieListModel: MovieListModel) {
         Completable.fromAction {movieListDao.insert(movieListModel)}.subscribeOn(Schedulers.io())

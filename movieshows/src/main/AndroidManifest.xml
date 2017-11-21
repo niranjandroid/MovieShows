@@ -24,7 +24,7 @@
             android:value="0ac279fa1436648768981f4ac32c7b16bfb11068"/>
 
         <activity
-            android:name="com.niranjandroid.movieshows.ui.listing.ListingActivity"
+            android:name="com.niranjandroid.movieshows.ui.movielisting.ListingActivity"
             android:label="@string/title_activity_movie_listing"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">

@@ -1,4 +1,4 @@
-package com.niranjandroid.movieshows.ui.listing
+package com.niranjandroid.movieshows.ui.movielisting
 
 
 import com.niranjandroid.movieshows.ui.base.BaseScope

@@ -7,7 +7,7 @@ import android.os.Handler
 import android.view.Window
 import android.view.WindowManager
 import com.niranjandroid.movieshows.R
-import com.niranjandroid.movieshows.ui.listing.ListingActivity
+import com.niranjandroid.movieshows.ui.movielisting.ListingActivity
 
 class SplashActivity : LifecycleActivity() {
     private var splashTimeHandler: Handler? = null

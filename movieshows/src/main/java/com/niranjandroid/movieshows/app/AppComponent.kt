@@ -4,8 +4,8 @@ import com.niranjandroid.movieshows.data.DatabaseModule
 import com.niranjandroid.movieshows.data.network.NetworkModule
 import com.niranjandroid.movieshows.ui.details.DetailsComponent
 import com.niranjandroid.movieshows.ui.details.DetailsModule
-import com.niranjandroid.movieshows.ui.listing.ListingComponent
-import com.niranjandroid.movieshows.ui.listing.ListingModule
+import com.niranjandroid.movieshows.ui.movielisting.ListingComponent
+import com.niranjandroid.movieshows.ui.movielisting.ListingModule
 import dagger.Component
 import javax.inject.Singleton
 

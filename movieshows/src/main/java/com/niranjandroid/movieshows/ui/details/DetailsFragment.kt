@@ -109,7 +109,7 @@ class DetailsFragment : BaseAbstractFragment(), DetailsContract.View {
 
     private fun updateData() {
         var title = movie?.title
-        movie?.tagline?.let { movie?.tagline?.isNotEmpty()?.let { title = "$title (${movie?.tagline})"  }}
+        movie?.tagline?.let { movie?.tagline?.isNotEmpty()?.let { title = "$title (${movie?.tagline})" } }
         tvTitle?.text = title?.replace("()", "")
         tvReleaseDate?.text = movie?.releaseDate
         tvRating?.text = String.format(activity.getString(R.string.info_rating),
@@ -123,28 +123,35 @@ class DetailsFragment : BaseAbstractFragment(), DetailsContract.View {
         movie?.videos?.videos?.let { updateTrailers(movie?.videos?.videos!!) }
     }
 
-    private fun updateTrailers(trailers : MutableList<Video>) {
-        tvTrailers.visibility = View.VISIBLE
-        listTrailers.visibility = View.VISIBLE
-        this.trailers.clear()
-        this.trailers.addAll(trailers)
-        trailersAdapter?.notifyDataSetChanged()
+    private fun updateTrailers(trailers: MutableList<Video>) {
+        if (trailers.size > 0) {
+            tvTrailers.visibility = View.VISIBLE
+            listTrailers.visibility = View.VISIBLE
+            this.trailers.clear()
+            this.trailers.addAll(trailers)
+            trailersAdapter?.notifyDataSetChanged()
+        }
     }
 
     private fun updateCrew(crewList: MutableList<Crew>) {
-        tvCrew.visibility = View.VISIBLE
-        listCrew.visibility = View.VISIBLE
-        this.crewList.clear()
-        this.crewList.addAll(crewList)
-        crewAdapter?.notifyDataSetChanged()
+
+        if (crewList.size > 0) {
+            tvCrew.visibility = View.VISIBLE
+            listCrew.visibility = View.VISIBLE
+            this.crewList.clear()
+            this.crewList.addAll(crewList)
+            crewAdapter?.notifyDataSetChanged()
+        }
     }
 
     private fun updateCast(castList: MutableList<CastModel>) {
-        tvCast.visibility = View.VISIBLE
-        listCast.visibility = View.VISIBLE
-        this.castList.clear()
-        this.castList.addAll(castList)
-        castAdapter?.notifyDataSetChanged()
+        if (castList.size > 0) {
+            tvCast.visibility = View.VISIBLE
+            listCast.visibility = View.VISIBLE
+            this.castList.clear()
+            this.castList.addAll(castList)
+            castAdapter?.notifyDataSetChanged()
+        }
     }
 
     override fun updatePosters(images: MutableList<String>) {
